@@ -31,10 +31,16 @@
     cursor: pointer;
   }
 
+  &__list {
+    padding-left: 0;
+  }
+
   &__list-element {
+    @include flex-container;
     list-style: none;
     cursor: pointer;
-    height: 50px;
+    height: 60px;
+    margin: 10px;
   }
 
   &__book {
