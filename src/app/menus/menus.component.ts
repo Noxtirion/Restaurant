@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PRODUCTS } from '../models/database';
+import { Products } from '../models/product';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-menus',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menus.component.scss']
 })
 export class MenusComponent implements OnInit {
+  private products: Products[] = PRODUCTS;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
+    console.log(this.products);
   }
-
 }

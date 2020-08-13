@@ -3,3 +3,9 @@ export interface Product {
   price: number;
   description: string;
 }
+
+export interface Products {
+  id: string;
+  dishType: string;
+  items: Product[];
+}
