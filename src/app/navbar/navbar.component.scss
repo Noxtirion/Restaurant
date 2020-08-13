@@ -1,0 +1,47 @@
+// #080F0F
+// #A4BAB7
+// #EFF2C0
+// #BEA57D
+// #A52422
+
+@mixin flex-container($display: flex, $justify-content: center, $align-items: center) {
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  @content;
+}
+
+.navbar {
+  width: 300px;
+  position: fixed;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  background-color: #bea57d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__logo {
+    @include flex-container;
+    height: 100px;
+    background-color: #080f0f;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  &__list-element {
+    list-style: none;
+    cursor: pointer;
+    height: 50px;
+  }
+
+  &__book {
+    @include flex-container;
+    height: 100px;
+    width: 100%;
+    background-color: #080f0f;
+    color: #fff;
+    cursor: pointer;
+  }
+}
