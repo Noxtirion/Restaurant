@@ -1,4 +1,15 @@
 .menus {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #bea57d;
+
+  &__products {
+    display: flex;
+    margin-right: 300px;
+    flex-wrap: wrap;
+  }
+
+  &__image {
+    height: 430px;
+    width: 480px;
+  }
 }

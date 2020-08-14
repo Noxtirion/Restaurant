@@ -1,4 +1,23 @@
 <section class="menus">
-  <h2>BREAKFAST</h2>
-  <app-menu-details></app-menu-details>
+  <!-- <h2>BREAKFAST</h2> -->
+  <!-- <app-menu-details></app-menu-details> -->
+  <div class="menus__products">
+    <div class="menus__product" *ngFor="let product of products">
+      <img
+        src="../../assets/menus-images/breakfast.jpg"
+        alt="breakfasts"
+        class="menus__image"
+        [routerLink]="['/menu', product.id]"
+      />
+    </div>
+    <!-- <div class="menus__product">
+      <img src="../../assets/menus-images/breakfast.jpg" alt="main courses" class="menus__image" />
+    </div>
+    <div class="menus__product">
+      <img src="../../assets/menus-images/breakfast.jpg" alt="desserts" class="menus__image" />
+    </div>
+    <div class="menus__product">
+      <img src="../../assets/menus-images/breakfast.jpg" alt="drinks" class="menus__image" />
+    </div> -->
+  </div>
 </section>
