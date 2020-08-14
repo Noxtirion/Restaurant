@@ -1,3 +1,33 @@
 .menu-details {
-  height: 100vh;
+  min-height: 100vh;
+  margin-right: 300px;
+  background-color: #bea57d;
+
+  &__title {
+    text-align: center;
+    margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    .menu-details__product {
+      height: 100px;
+      width: 25%;
+      min-width: 280px;
+      padding: 3rem 2rem;
+      border: 1px solid #080f0f;
+      margin: 0.3rem;
+
+      .menu-details__top-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+      }
+    }
+  }
 }

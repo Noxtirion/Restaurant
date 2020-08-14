@@ -7,5 +7,6 @@ export interface Product {
 export interface Products {
   id: string;
   dishType: string;
+  imageSrc: string;
   items: Product[];
 }

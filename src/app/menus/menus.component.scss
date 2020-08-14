@@ -1,15 +1,40 @@
+$margin-size: 0.2rem;
+
 .menus {
   min-height: 100vh;
   background-color: #bea57d;
+  margin-right: 300px;
+
+  &__title {
+    padding: calc(3rem + #{$margin-size}) 0 3rem;
+    margin: 0;
+    text-align: center;
+  }
 
   &__products {
     display: flex;
-    margin-right: 300px;
     flex-wrap: wrap;
+    margin: $margin-size $margin-size 0;
+    padding-bottom: $margin-size;
+
+    .menus__product {
+      width: calc(50% - 2 * #{$margin-size});
+      display: flex;
+      overflow: hidden;
+      margin: $margin-size;
+    }
   }
 
   &__image {
-    height: 430px;
-    width: 480px;
+    min-width: 300px;
+    width: 100%;
+
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      opacity: 0.9;
+    }
   }
 }

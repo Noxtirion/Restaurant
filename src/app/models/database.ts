@@ -1,10 +1,10 @@
 import { Products } from './product';
-// import { AllProducts } from './product';
 
 export const PRODUCTS: Products[] = [
   {
     id: '1',
     dishType: 'BREAKFAST',
+    imageSrc: '../../assets/menus-images/breakfast.jpg',
     items: [
       {
         name: 'Scrambled eggs',
@@ -56,6 +56,7 @@ export const PRODUCTS: Products[] = [
   {
     id: '2',
     dishType: 'MAIN COURSE',
+    imageSrc: '../../assets/menus-images/dinner.jpg',
     items: [
       {
         name: 'Main',
@@ -107,6 +108,7 @@ export const PRODUCTS: Products[] = [
   {
     id: '3',
     dishType: 'DESSERTS',
+    imageSrc: '../../assets/menus-images/desserts.jpg',
     items: [
       {
         name: 'Dessert',
@@ -158,6 +160,7 @@ export const PRODUCTS: Products[] = [
   {
     id: '4',
     dishType: 'DRINKS',
+    imageSrc: '../../assets/menus-images/drinks.jpg',
     items: [
       {
         name: 'Drink',
