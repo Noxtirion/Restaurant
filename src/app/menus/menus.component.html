@@ -1,13 +1,15 @@
 <section class="menus">
   <h2 class="menus__title">MENU</h2>
   <div class="menus__products">
-    <div class="menus__product" *ngFor="let product of products">
-      <img
-        src="{{ product.imageSrc }}"
-        alt="breakfasts"
-        class="menus__image"
-        [routerLink]="['/menu', product.id]"
-      />
+    <div
+      class="menus__product"
+      *ngFor="let product of products"
+      [routerLink]="['/menu', product.id]"
+    >
+      <img src="{{ product.imageSrc }}" alt="breakfasts" class="menus__image" />
+      <div class="menus__description">
+        <div class="menus__description-type">{{ product.dishType }}</div>
+      </div>
     </div>
   </div>
 </section>
