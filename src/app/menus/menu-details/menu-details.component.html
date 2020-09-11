@@ -1,7 +1,7 @@
 <div class="menu-details">
   <h3 class="menu-details__title">{{ menuDetails?.dishType }}</h3>
   <div class="menu-details__wrapper">
-    <div class="menu-details__product" *ngFor="let item of menuDetails.items">
+    <div class="menu-details__product" *ngFor="let item of menuDetails?.items">
       <div class="menu-details__top-info">
         <span>{{ item.name }}</span
         ><span>{{ item.price }} PLN</span>

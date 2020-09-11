@@ -16,8 +16,8 @@ export class MenuDetailsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private menuService: MenuService) {}
 
   ngOnInit() {
-    this.subscribe = this.route.params.subscribe(
-      params => (this.menuDetails = this.menuService.getMenu(params.id))
+    this.subscribe = this.route.params.subscribe(params =>
+      this.menuService.getMenu(params.id).then(x => (this.menuDetails = x))
     );
   }
 
