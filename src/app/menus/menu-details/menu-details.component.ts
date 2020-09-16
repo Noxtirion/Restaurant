@@ -12,12 +12,16 @@ import { MenuService } from '../../services/menu.service';
 export class MenuDetailsComponent implements OnInit, OnDestroy {
   public menuDetails: Products;
   private subscribe: Subscription;
+  public spinner: boolean = true;
 
   constructor(private route: ActivatedRoute, private menuService: MenuService) {}
 
   ngOnInit() {
     this.subscribe = this.route.params.subscribe(params =>
-      this.menuService.getMenu(params.id).then(x => (this.menuDetails = x))
+      this.menuService.getMenu(params.id).then(x => {
+        this.menuDetails = x;
+        this.spinner = false;
+      })
     );
   }
 

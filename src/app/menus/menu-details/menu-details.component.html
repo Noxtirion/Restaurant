@@ -1,4 +1,6 @@
 <div class="menu-details">
+  <app-spinner *ngIf="spinner"></app-spinner>
+
   <h3 class="menu-details__title">{{ menuDetails?.dishType }}</h3>
   <div class="menu-details__wrapper">
     <div class="menu-details__product" *ngFor="let item of menuDetails?.items">

@@ -12,6 +12,8 @@ import { MenuDetailsComponent } from './menus/menu-details/menu-details.componen
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { environment } from '../environments/environment';
     AboutComponent,
     GalleryComponent,
     ContactComponent,
-    MenuDetailsComponent
+    MenuDetailsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

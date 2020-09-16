@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MenuService {
-  private products: Products[];
+  //   private products: Products[];
   private items: Observable<any[]>;
 
   constructor(private firestore: AngularFirestore) {
@@ -28,11 +28,13 @@ export class MenuService {
   }
 
   getMenu(id: string): Promise<any> {
-    return this.items
-      .pipe(first())
-      .toPromise()
-      .then(x => (this.products = x))
-      .then(x => x.find(item => item.id === id))
-      .then(x => x);
+    return (
+      this.items
+        .pipe(first())
+        .toPromise()
+        // .then(x => (this.products = x))
+        .then(x => x.find(item => item.id === id))
+        .then(x => x)
+    );
   }
 }
