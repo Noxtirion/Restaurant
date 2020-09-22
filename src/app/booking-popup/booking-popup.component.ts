@@ -11,6 +11,9 @@ import { MenuService } from '../services/menu.service';
 export class BookingPopupComponent implements OnInit {
   contactForm: FormGroup;
 
+  public minDate: Date;
+  public maxDate: Date;
+
   public numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
   public timeAvalible: string[] = [
     '15:00',
@@ -25,6 +28,14 @@ export class BookingPopupComponent implements OnInit {
 
   constructor(private menuService: MenuService) {
     this.contactForm = this.menuService.createFormGroup();
+
+    const today = new Date();
+    const currentYear = new Date().getFullYear();
+
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.minDate = new Date(date);
+    this.maxDate = new Date(currentYear + 0, 11, 31);
   }
 
   ngOnInit(): void {}

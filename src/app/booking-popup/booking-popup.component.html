@@ -3,7 +3,14 @@
   <div class="date-wrapper">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker" name="bookingDate" formControlName="date" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        name="bookingDate"
+        formControlName="date"
+        [min]="minDate"
+        [max]="maxDate"
+      />
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <button type="button" mat-raised-button (click)="picker.open()">Open</button>

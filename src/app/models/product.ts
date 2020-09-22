@@ -10,3 +10,9 @@ export interface Products {
   imageSrc: string;
   items: Product[];
 }
+
+export interface Offer {
+  id: string;
+  dishType: string;
+  imageSrc: string;
+}

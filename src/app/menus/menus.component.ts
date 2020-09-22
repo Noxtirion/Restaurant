@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PRODUCTS } from '../models/database';
-import { Products } from '../models/product';
+import { OFFER } from '../models/database';
+import { Offer } from '../models/product';
 
 @Component({
   selector: 'app-menus',
@@ -8,7 +8,7 @@ import { Products } from '../models/product';
   styleUrls: ['./menus.component.scss']
 })
 export class MenusComponent implements OnInit {
-  public products: Products[] = PRODUCTS;
+  public products: Offer[] = OFFER;
 
   constructor() {}
 
