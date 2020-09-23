@@ -12,6 +12,8 @@ $margin-size: 0.2rem;
   background-color: #080f0f;
   color: #fff;
   margin-right: 300px;
+  position: relative;
+  z-index: 10;
 
   &__title {
     padding: calc(3rem + #{$margin-size}) 0 3rem;

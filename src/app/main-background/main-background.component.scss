@@ -1,5 +1,207 @@
+$shine1: #eae3d6;
+$shine2: #baa378;
+$shine3: #6c5937;
+
 .background {
   background: url(../../assets/background-image/background.jpg) no-repeat center center fixed;
   height: 100vh;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+
+  &__title {
+    margin: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 8rem;
+    color: $shine1;
+    text-shadow: 0 0 0.6rem $shine1, 0 0 1.5rem $shine2, -0.2rem 0.1rem 1rem $shine2,
+      0.2rem 0.1rem 1rem $shine2, 0 -0.5rem 2rem $shine3, 0 0.5rem 3rem $shine3;
+    animation: shine 2s forwards, flicker 3s infinite;
+
+    &--bottom {
+      font-size: 6rem;
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    22%,
+    36%,
+    75% {
+      color: $shine1;
+      text-shadow: 0 0 0.6rem $shine1, 0 0 1.5rem $shine2, -0.2rem 0.1rem 1rem $shine2,
+        0.2rem 0.1rem 1rem $shine2, 0 -0.5rem 2rem $shine3, 0 0.5rem 3rem $shine3;
+    }
+    28%,
+    33% {
+      color: $shine2;
+      text-shadow: 0.1rem 0.1rem 0.5rem #1b150e;
+    }
+    82%,
+    97% {
+      color: $shine3;
+      text-shadow: 0.1rem 0.1rem 0.5rem #1b150e;
+    }
+  }
+
+  &__flash {
+    animation: shine 2s forwards, blink 10s 2s infinite;
+  }
+
+  &__fast-flash {
+    animation: shine 2s forwards, blink 10s 1s infinite;
+  }
+
+  &__rotated {
+    animation: broke 0.5s 3s forwards, blink 3s 2s infinite;
+  }
+}
+
+@keyframes shine {
+  0% {
+    color: #bea57d;
+    text-shadow: 0.1rem 0.1rem 0.5rem #1b150e;
+  }
+  100% {
+    color: $shine1;
+    text-shadow: 0 0 0.6rem $shine1, 0 0 1.5rem$shine2, -0.2rem 0.1rem 1rem $shine2,
+      0.2rem 0.1rem 1rem $shine2, 0 -0.5rem 2rem $shine3, 0 0.5rem 3rem $shine3;
+  }
+}
+
+@keyframes broke {
+  100% {
+    transform: rotate(30deg) translateY(4rem) translateX(2rem);
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: 0.9;
+  }
+
+  6% {
+    opacity: 0.85;
+  }
+
+  8% {
+    opacity: 0.95;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  11% {
+    opacity: 0.922;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  14% {
+    opacity: 0.95;
+  }
+
+  16% {
+    opacity: 0.98;
+  }
+
+  17% {
+    opacity: 0.9;
+  }
+
+  19% {
+    opacity: 0.93;
+  }
+
+  20% {
+    opacity: 0.99;
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  26% {
+    opacity: 0.94;
+  }
+
+  28% {
+    opacity: 0.98;
+  }
+
+  37% {
+    opacity: 0.93;
+  }
+
+  38% {
+    opacity: 0.5;
+  }
+
+  39% {
+    opacity: 0.96;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  44% {
+    opacity: 0.97;
+  }
+
+  46% {
+    opacity: 0.94;
+  }
+
+  56% {
+    opacity: 0.9;
+  }
+
+  58% {
+    opacity: 0.9;
+  }
+
+  60% {
+    opacity: 0.99;
+  }
+
+  68% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.9;
+  }
+
+  72% {
+    opacity: 0.95;
+  }
+
+  93% {
+    opacity: 0.93;
+  }
+
+  95% {
+    opacity: 0.95;
+  }
+
+  97% {
+    opacity: 0.93;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

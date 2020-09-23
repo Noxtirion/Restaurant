@@ -1,11 +1,19 @@
 <section class="navbar">
-  <div class="navbar__logo">LOGO</div>
+  <div class="navbar__logo" (click)="onClickScroll('top')">LOGO</div>
   <nav>
     <ul class="navbar__list">
-      <li class="navbar__list-element" routerLink="/menus"><a>MENU</a></li>
-      <li class="navbar__list-element" routerLink="/about"><a>ABOUT US</a></li>
-      <li class="navbar__list-element" routerLink="/gallery"><a>GALLERY</a></li>
-      <li class="navbar__list-element" routerLink="/contact"><a>CONTACT</a></li>
+      <li class="navbar__list-element" routerLink="/menus" (click)="onClickScroll('menus')">
+        <a>MENU</a>
+      </li>
+      <li class="navbar__list-element" routerLink="/about" (click)="onClickScroll('about')">
+        <a>ABOUT US</a>
+      </li>
+      <li class="navbar__list-element" routerLink="/gallery" (click)="onClickScroll('gallery')">
+        <a>GALLERY</a>
+      </li>
+      <li class="navbar__list-element" routerLink="/contact" (click)="onClickScroll('contact')">
+        <a>CONTACT</a>
+      </li>
     </ul>
   </nav>
   <button class="navbar__book" (click)="openDialog()">BOOK A TABLE</button>
