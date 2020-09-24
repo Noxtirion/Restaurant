@@ -8,7 +8,7 @@ import { Offer } from '../models/product';
   styleUrls: ['./menus.component.scss']
 })
 export class MenusComponent implements OnInit {
-  public products: Offer[] = OFFER;
+  products: Offer[] = OFFER;
 
   constructor() {}
 

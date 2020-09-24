@@ -1,56 +1,93 @@
-<h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
-<form class="booking-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-  <div class="date-wrapper">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Choose a date</mat-label>
+<ng-container *ngIf="!uniqueId && !cancel">
+  <h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
+  <form class="booking-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="date-wrapper">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          name="bookingDate"
+          formControlName="date"
+          [min]="minDate"
+          [max]="maxDate"
+        />
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button type="button" mat-raised-button (click)="picker.open()">Open</button>
+    </div>
+
+    <mat-form-field class="time" appearance="fill">
+      <mat-label>Arrival time:</mat-label>
+
+      <select matNativeControl formControlName="timeAvalible">
+        <option *ngFor="let time of timeAvalible" [value]="time">{{ time }}</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field class="numberOfGuests" appearance="fill">
+      <mat-label>Number of Guests (max 6):</mat-label>
+      <select matNativeControl formControlName="numberOfGuests">
+        <option *ngFor="let guest of numberOfGuests" [value]="guest">{{ guest }}</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field class="first-name">
+      <mat-label>First Name:</mat-label>
       <input
         matInput
-        [matDatepicker]="picker"
-        name="bookingDate"
-        formControlName="date"
-        [min]="minDate"
-        [max]="maxDate"
+        placeholder="John"
+        name="firstName"
+        formControlName="firstName"
+        maxlength="20"
       />
-      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button type="button" mat-raised-button (click)="picker.open()">Open</button>
-  </div>
 
-  <mat-form-field class="time" appearance="fill">
-    <mat-label>Arrival time:</mat-label>
+    <mat-form-field class="last-name">
+      <mat-label>Last Name:</mat-label>
+      <input
+        matInput
+        placeholder="Smith"
+        name="lastName"
+        formControlName="lastName"
+        maxlength="20"
+      />
+    </mat-form-field>
 
-    <select matNativeControl formControlName="timeAvalible">
-      <option *ngFor="let time of timeAvalible" [value]="time">{{ time }}</option>
-    </select>
-  </mat-form-field>
+    <button type="submit" mat-button [disabled]="!contactForm.valid">Book</button>
+  </form>
+</ng-container>
 
-  <mat-form-field class="numberOfGuests" appearance="fill">
-    <mat-label>Number of Guests (max 6):</mat-label>
-    <select matNativeControl formControlName="numberOfGuests">
-      <option *ngFor="let guest of numberOfGuests" [value]="guest">{{ guest }}</option>
-    </select>
-  </mat-form-field>
+<ng-container *ngIf="uniqueId && !cancel">
+  <h1 mat-dialog-title>
+    Please write down or copy the following ID which will let You cancel reservation:
+  </h1>
 
-  <mat-form-field class="first-name">
-    <mat-label>First Name:</mat-label>
-    <input
-      matInput
-      placeholder="John"
-      name="firstName"
-      formControlName="firstName"
-      maxlength="20"
-    />
-  </mat-form-field>
+  <div class="unique-id">{{ uniqueId | uppercase }}</div>
 
-  <mat-form-field class="last-name">
-    <mat-label>Last Name:</mat-label>
-    <input matInput placeholder="Smith" name="lastName" formControlName="lastName" maxlength="20" />
-  </mat-form-field>
+  <p>In case of losing the ID please contact restaurant on phone number: 123-456-789. Thank You!</p>
+</ng-container>
 
-  <button type="submit" mat-dialog-close mat-button [disabled]="!contactForm.valid">Book</button>
-</form>
+<ng-container *ngIf="cancel">
+  <h1 mat-dialog-title>
+    Please provide Your unique Id:
+  </h1>
+  <form class="cancel-form" [formGroup]="cancelForm" (ngSubmit)="onCancel()">
+    <mat-form-field class="cancel-id">
+      <mat-label>Unique Id:</mat-label>
+      <input
+        matInput
+        placeholder="12345678"
+        name="uniqueId"
+        formControlName="uniqueId"
+        maxlength="8"
+      />
+    </mat-form-field>
+    <button type="submit" mat-button [disabled]="!cancelForm.valid">Cancel</button>
+  </form>
+</ng-container>
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button>Cancel reservation</button>
+  <button mat-button (click)="openCancel()">Cancel reservation</button>
 </div>

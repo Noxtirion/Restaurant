@@ -10,9 +10,9 @@ import { MenuService } from '../../services/menu.service';
   styleUrls: ['./menu-details.component.scss']
 })
 export class MenuDetailsComponent implements OnInit, OnDestroy {
-  public menuDetails: Products;
+  menuDetails: Products;
   private subscribe: Subscription;
-  public spinner: boolean = true;
+  spinner: boolean = true;
 
   constructor(private route: ActivatedRoute, private menuService: MenuService) {}
 

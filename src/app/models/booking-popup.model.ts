@@ -1,7 +1,12 @@
 export class ContactRequest {
-  public date: string = '';
-  public timeAvalible: string = '00:00';
-  public numberOfGuests: number = 0;
-  public firstName: string = '';
-  public lastName: string = '';
+  date: string = '';
+  timeAvalible: string = '00:00';
+  numberOfGuests: number = 0;
+  firstName: string = '';
+  lastName: string = '';
+  uniqueId: string = '';
+}
+
+export class CancelRequest {
+  uniqueId: string = '';
 }

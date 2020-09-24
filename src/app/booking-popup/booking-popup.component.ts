@@ -10,28 +10,23 @@ import { MenuService } from '../services/menu.service';
 })
 export class BookingPopupComponent implements OnInit {
   contactForm: FormGroup;
+  cancelForm: FormGroup;
+  uniqueId: string;
+  cancel: boolean = false;
 
-  public minDate: Date;
-  public maxDate: Date;
+  minDate: Date;
+  maxDate: Date;
 
-  public numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
-  public timeAvalible: string[] = [
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00'
-  ];
+  numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
+  timeAvalible: string[] = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
 
   constructor(private menuService: MenuService) {
+    this.menuService.createId();
     this.contactForm = this.menuService.createFormGroup();
+    this.cancelForm = this.menuService.createCancelForm();
 
     const today = new Date();
     const currentYear = new Date().getFullYear();
-
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
     this.minDate = new Date(date);
@@ -41,11 +36,21 @@ export class BookingPopupComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
+    this.uniqueId = this.menuService.returnId();
     // Deep copy of the form-model
     const result: ContactRequest = Object.assign({}, this.contactForm.value);
 
     this.menuService.createBookingOrder(result);
 
+    this.contactForm.reset();
     console.log(result);
+  }
+
+  openCancel() {
+    this.cancel = true;
+  }
+
+  onCancel() {
+    this.menuService.deleteBookingOrder(this.cancelForm.value.uniqueId);
   }
 }
