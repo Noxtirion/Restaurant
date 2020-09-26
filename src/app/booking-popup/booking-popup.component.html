@@ -89,5 +89,5 @@
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button (click)="openCancel()">Cancel reservation</button>
+  <button mat-button (click)="openCancel()" *ngIf="!cancel">Cancel reservation</button>
 </div>

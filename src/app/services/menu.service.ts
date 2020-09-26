@@ -15,13 +15,15 @@ export class MenuService {
   //   private products: Products[];
   private items: Observable<any[]>;
   private bookOrders: Observable<any[]>;
+  private bookOrdersValue: Observable<any[]>;
   canceledBook: ContactRequest;
-  allBookedItems: any;
+  allBookedItems: any[];
   uniqueId: string;
 
   constructor(private firestore: AngularFirestore) {
     this.items = this.firestore.collection('menus').valueChanges();
     this.bookOrders = this.firestore.collection('bookingOrders').snapshotChanges();
+    this.bookOrdersValue = this.firestore.collection('bookingOrders').valueChanges();
     //  this.createId();
 
     //  firestore
@@ -51,7 +53,7 @@ export class MenuService {
       numberOfGuests: new FormControl(null, [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      uniqueId: new FormControl(this.uniqueId)
+      uniqueId: new FormControl('')
     });
   }
 
@@ -66,9 +68,21 @@ export class MenuService {
   }
 
   createId() {
-    this.uniqueId = uuidv4()
+    const generateId = uuidv4()
       .substring(0, 8)
       .toUpperCase();
+
+    this.checkId(generateId);
+  }
+
+  checkId(generateId: string) {
+    this.bookOrdersValue
+      .pipe(first())
+      .toPromise()
+      .then(x => x.find(item => item.uniqueId === generateId))
+      .then(x => {
+        !x ? (this.uniqueId = generateId) : this.createId();
+      });
   }
 
   returnId() {

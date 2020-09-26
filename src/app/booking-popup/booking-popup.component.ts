@@ -21,10 +21,6 @@ export class BookingPopupComponent implements OnInit {
   timeAvalible: string[] = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
 
   constructor(private menuService: MenuService) {
-    this.menuService.createId();
-    this.contactForm = this.menuService.createFormGroup();
-    this.cancelForm = this.menuService.createCancelForm();
-
     const today = new Date();
     const currentYear = new Date().getFullYear();
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -33,12 +29,20 @@ export class BookingPopupComponent implements OnInit {
     this.maxDate = new Date(currentYear + 0, 11, 31);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.menuService.createId();
+    this.contactForm = this.menuService.createFormGroup();
+    this.cancelForm = this.menuService.createCancelForm();
+  }
 
   onSubmit() {
     this.uniqueId = this.menuService.returnId();
+
+    console.log(this.uniqueId);
     // Deep copy of the form-model
     const result: ContactRequest = Object.assign({}, this.contactForm.value);
+
+    result.uniqueId = this.uniqueId;
 
     this.menuService.createBookingOrder(result);
 
