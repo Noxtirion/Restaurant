@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 // import { PRODUCTS } from '../models/database';
 // import { Products } from '../models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, pipe } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
@@ -19,8 +20,11 @@ export class MenuService {
   canceledBook: ContactRequest;
   allBookedItems: any[];
   uniqueId: string;
+  minDate: Date;
+  maxDate: Date;
+  private userRefId: any = null;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth) {
     this.items = this.firestore.collection('menus').valueChanges();
     this.bookOrders = this.firestore.collection('bookingOrders').snapshotChanges();
     this.bookOrdersValue = this.firestore.collection('bookingOrders').valueChanges();
@@ -48,7 +52,7 @@ export class MenuService {
 
   createFormGroup() {
     return new FormGroup({
-      date: new FormControl('', [Validators.required]),
+      date: new FormControl({ value: '', disabled: true }, [Validators.required]),
       timeAvalible: new FormControl(null, [Validators.required]),
       numberOfGuests: new FormControl(null, [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
@@ -57,14 +61,59 @@ export class MenuService {
     });
   }
 
+  async getUserId() {
+    try {
+      await this.fireAuth.authState
+        .pipe(first())
+        .toPromise()
+        .then(user => (user !== null ? (this.userRefId = user.uid) : (this.userRefId = null)));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async checkUserIsLogged() {
+    try {
+      return await this.fireAuth.authState.pipe(first()).toPromise();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async createBookingOrder(data: ContactRequest) {
+    try {
+      await this.getUserId();
+    } catch (error) {
+      console.error(error);
+    }
+    this.userRefId &&
+      this.firestore
+        .collection('bookingOrders')
+        .doc(`${this.userRefId}`)
+        .set(data);
+  }
+
+  createUserProfileDocument = (userId: any) => {
+    if (!userId) return;
+
+    const userRef = this.firestore.collection('bookingOrders').doc(`${userId}`);
+  };
+
+  createDateScope() {
+    const today = new Date();
+    const currentYear = new Date().getFullYear();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    this.minDate = new Date(date);
+    this.maxDate = new Date(currentYear + 0, 11, 31);
+
+    return [this.minDate, this.maxDate];
+  }
+
   createCancelForm() {
     return new FormGroup({
       uniqueId: new FormControl('')
     });
-  }
-
-  createBookingOrder(data: ContactRequest) {
-    this.firestore.collection('bookingOrders').add(data);
   }
 
   createId() {
@@ -72,42 +121,49 @@ export class MenuService {
       .substring(0, 8)
       .toUpperCase();
 
-    this.checkId(generateId);
-  }
-
-  checkId(generateId: string) {
-    this.bookOrdersValue
-      .pipe(first())
-      .toPromise()
-      .then(x => x.find(item => item.uniqueId === generateId))
-      .then(x => {
-        !x ? (this.uniqueId = generateId) : this.createId();
-      });
+    //  this.checkId(generateId);
+    this.uniqueId = generateId;
   }
 
   returnId() {
     return this.uniqueId;
   }
 
-  async deleteBookingOrder(uniqueid: string) {
-    let bookOrdersPromised = await this.bookOrders.pipe(first()).toPromise();
-    this.allBookedItems = [];
+  //   checkId(generateId: string) {
+  //     this.bookOrdersValue
+  //       .pipe(first())
+  //       .toPromise()
+  //       .then(x => x.find(item => item.uniqueId === generateId))
+  //       .then(x => {
+  //         !x ? (this.uniqueId = generateId) : this.createId();
+  //       });
+  //   }
 
-    bookOrdersPromised.forEach(a => {
-      let item = a.payload.doc.data();
-      item.id = a.payload.doc.id;
-      this.allBookedItems.push(item);
-    });
+  //   async deleteBookingOrder(uniqueid: string) {
+  //     let bookOrdersPromised = await this.bookOrders.pipe(first()).toPromise();
+  //     this.allBookedItems = [];
 
-    const singleItem = this.allBookedItems.find(
-      (item: CancelRequest) => item.uniqueId === uniqueid
-    );
-    singleItem && this.firestore.doc(`bookingOrders/${singleItem.id}`).delete();
-    this.allBookedItems = [];
-    bookOrdersPromised = [];
+  //     bookOrdersPromised.forEach(a => {
+  //       let item = a.payload.doc.data();
+  //       // console.log(a.payload.doc);
+  //       item.id = a.payload.doc.id;
+  //       this.allBookedItems.push(item);
+  //     });
 
-    console.log(this.allBookedItems);
-    console.log(bookOrdersPromised);
-    console.log(singleItem);
-  }
+  //     const singleItem = this.allBookedItems.find(
+  //       (item: CancelRequest) => item.uniqueId === uniqueid
+  //     );
+  //     singleItem && this.firestore.doc(`bookingOrders/${singleItem.id}`).delete();
+  //     this.allBookedItems = [];
+  //     bookOrdersPromised = [];
+
+  //     console.log(this.allBookedItems);
+  //     console.log(bookOrdersPromised);
+  //     console.log(singleItem);
+  //   }
+
+  //   checkNumberOfTables() {
+  //     const numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
+  //     const timeAvalible: string[] = ['14:00', '16:00', '18:00', '20:00', '22:00'];
+  //   }
 }

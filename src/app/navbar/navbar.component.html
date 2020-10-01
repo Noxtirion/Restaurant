@@ -16,5 +16,8 @@
       </li>
     </ul>
   </nav>
-  <button class="navbar__book" (click)="openDialog()">BOOK A TABLE</button>
+  <div class="navbar__logging">
+    <button class="navbar__log-button" (click)="logout()">{{ logButtonText }}</button>
+    <button class="navbar__book" (click)="openDialog()">BOOK A TABLE</button>
+  </div>
 </section>

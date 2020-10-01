@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { from } from 'rxjs';
 import { BookingPopupComponent } from '../booking-popup/booking-popup.component';
 import { ViewportScroller } from '@angular/common';
+import { AuthService } from '../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,15 @@ import { ViewportScroller } from '@angular/common';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  constructor(public dialog: MatDialog, private viewportScroller: ViewportScroller) {}
+  logButtonText: string = 'LOG OUT';
+
+  constructor(
+    public dialog: MatDialog,
+    private viewportScroller: ViewportScroller,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit(): void {}
 
   openDialog() {
     this.dialog.open(BookingPopupComponent);
@@ -22,5 +30,7 @@ export class NavbarComponent implements OnInit {
     }, 100);
   }
 
-  ngOnInit(): void {}
+  logout() {
+    this.authService.logout();
+  }
 }

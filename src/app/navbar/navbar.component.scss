@@ -43,7 +43,8 @@
     margin: 10px 0;
   }
 
-  &__book {
+  &__book,
+  &__log-button {
     @include flex-container;
     height: 100px;
     width: 100%;
@@ -51,5 +52,10 @@
     color: #fff;
     border: none;
     cursor: pointer;
+  }
+
+  &__logging {
+    @include flex-container;
+    flex-direction: column;
   }
 }

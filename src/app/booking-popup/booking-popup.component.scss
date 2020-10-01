@@ -1,10 +1,39 @@
-.booking-form {
+.booking-form,
+.form-bottom,
+.sign-up,
+.sign-in {
   display: flex;
   flex-direction: column;
 
   mat-form-field {
     margin-right: 12px;
   }
+}
+
+.sign-up {
+  min-width: 300px;
+}
+
+.sign-in {
+  margin-top: 2rem;
+  border-top: 1px solid #080f0f04;
+
+  .sign-in-title {
+    margin-top: 1rem;
+  }
+}
+
+.sign-up > mat-form-field,
+.sign-in > mat-form-field {
+  margin-right: 0;
+}
+
+.sign-button {
+  width: 50%;
+}
+
+.form-show {
+  display: none;
 }
 
 .unique-id {

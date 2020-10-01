@@ -1,4 +1,57 @@
-<ng-container *ngIf="!uniqueId && !cancel">
+<ng-container *ngIf="!isSignedIn">
+  <h2 mat-dialog-title>Sign Up</h2>
+
+  <div class="sign-up">
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input
+        type="text"
+        placeholder="default@example.com"
+        name="EmailSignUp"
+        matInput
+        #emailSignUp
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input type="text" matInput #passwordSignUp placeholder="******" name="PasswordSignUp" />
+    </mat-form-field>
+
+    <button
+      type="button"
+      class="sign-button"
+      mat-raised-button
+      (click)="onSignUp(emailSignUp.value, passwordSignUp.value)"
+    >
+      Sign Up
+    </button>
+  </div>
+  <div class="sign-in">
+    <h2 mat-dialog-title class="sign-in-title">Sign In</h2>
+
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input type="text" placeholder="default@example.com" name="Email" matInput #email />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input type="text" matInput #password placeholder="*******" name="Password" />
+    </mat-form-field>
+
+    <button
+      type="button"
+      class="sign-button"
+      mat-raised-button
+      (click)="onSignIn(email.value, password.value)"
+    >
+      Sign In
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!uniqueId && !cancel && isSignedIn">
   <h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
   <form class="booking-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="date-wrapper">
@@ -11,50 +64,53 @@
           formControlName="date"
           [min]="minDate"
           [max]="maxDate"
+          (dateInput)="getDate($event)"
         />
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker disabled="false" #picker></mat-datepicker>
       </mat-form-field>
       <button type="button" mat-raised-button (click)="picker.open()">Open</button>
     </div>
 
-    <mat-form-field class="time" appearance="fill">
-      <mat-label>Arrival time:</mat-label>
+    <div class="form-bottom" [ngClass]="{ 'form-show': isDisabled }">
+      <mat-form-field class="time" appearance="fill">
+        <mat-label>Arrival time:</mat-label>
 
-      <select matNativeControl formControlName="timeAvalible">
-        <option *ngFor="let time of timeAvalible" [value]="time">{{ time }}</option>
-      </select>
-    </mat-form-field>
+        <select matNativeControl formControlName="timeAvalible">
+          <option *ngFor="let time of timeAvalible" [value]="time">{{ time }}</option>
+        </select>
+      </mat-form-field>
 
-    <mat-form-field class="numberOfGuests" appearance="fill">
-      <mat-label>Number of Guests (max 6):</mat-label>
-      <select matNativeControl formControlName="numberOfGuests">
-        <option *ngFor="let guest of numberOfGuests" [value]="guest">{{ guest }}</option>
-      </select>
-    </mat-form-field>
+      <mat-form-field class="numberOfGuests" appearance="fill">
+        <mat-label>Number of Guests (max 6):</mat-label>
+        <select matNativeControl formControlName="numberOfGuests">
+          <option *ngFor="let guest of numberOfGuests" [value]="guest">{{ guest }}</option>
+        </select>
+      </mat-form-field>
 
-    <mat-form-field class="first-name">
-      <mat-label>First Name:</mat-label>
-      <input
-        matInput
-        placeholder="John"
-        name="firstName"
-        formControlName="firstName"
-        maxlength="20"
-      />
-    </mat-form-field>
+      <mat-form-field class="first-name">
+        <mat-label>First Name:</mat-label>
+        <input
+          matInput
+          placeholder="John"
+          name="firstName"
+          formControlName="firstName"
+          maxlength="20"
+        />
+      </mat-form-field>
 
-    <mat-form-field class="last-name">
-      <mat-label>Last Name:</mat-label>
-      <input
-        matInput
-        placeholder="Smith"
-        name="lastName"
-        formControlName="lastName"
-        maxlength="20"
-      />
-    </mat-form-field>
+      <mat-form-field class="last-name">
+        <mat-label>Last Name:</mat-label>
+        <input
+          matInput
+          placeholder="Smith"
+          name="lastName"
+          formControlName="lastName"
+          maxlength="20"
+        />
+      </mat-form-field>
 
-    <button type="submit" mat-button [disabled]="!contactForm.valid">Book</button>
+      <button type="submit" mat-button [disabled]="!contactForm.valid">Book</button>
+    </div>
   </form>
 </ng-container>
 
@@ -89,5 +145,5 @@
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button (click)="openCancel()" *ngIf="!cancel">Cancel reservation</button>
+  <button mat-button (click)="openCancel()" *ngIf="!cancel && false">Cancel reservation</button>
 </div>
