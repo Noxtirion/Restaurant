@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Sign Up</h2>
+
+<div class="sign-up">
+  <mat-form-field>
+    <mat-label>Email:</mat-label>
+    <input type="text" placeholder="default@example.com" name="EmailSignUp" matInput #emailSignUp />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password:</mat-label>
+    <input type="text" matInput #passwordSignUp placeholder="******" name="PasswordSignUp" />
+  </mat-form-field>
+
+  <button
+    type="button"
+    class="sign-button"
+    mat-raised-button
+    (click)="onSignUp(emailSignUp.value, passwordSignUp.value)"
+    mat-dialog-close
+  >
+    Sign Up
+  </button>
+</div>
+<div class="sign-in">
+  <h2 mat-dialog-title class="sign-in-title">Sign In</h2>
+
+  <mat-form-field>
+    <mat-label>Email:</mat-label>
+    <input type="text" placeholder="default@example.com" name="Email" matInput #email />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password:</mat-label>
+    <input type="text" matInput #password placeholder="*******" name="Password" />
+  </mat-form-field>
+
+  <button
+    type="button"
+    class="sign-button"
+    mat-raised-button
+    (click)="onSignIn(email.value, password.value)"
+    mat-dialog-close
+  >
+    Sign In
+  </button>
+</div>

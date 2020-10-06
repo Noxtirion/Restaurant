@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 // import { Products } from '../models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, pipe } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { Observable, pipe, Subject } from 'rxjs';
+import { first, tap } from 'rxjs/operators';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ContactRequest, CancelRequest } from '../models/booking-popup.model';
 import { v4 as uuidv4 } from 'uuid';
@@ -23,6 +23,11 @@ export class MenuService {
   minDate: Date;
   maxDate: Date;
   private userRefId: any = null;
+  isBooked: boolean = false;
+  userOrder: any;
+  newOrder = new Subject<ContactRequest>();
+
+  //   private userBooked: boolean = false;
 
   constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth) {
     this.items = this.firestore.collection('menus').valueChanges();
@@ -40,6 +45,15 @@ export class MenuService {
     //      console.error('Error writing document: ', error);
     //    });
     //  this.getItems();
+
+    //  this.checkIfUserBooked();
+  }
+
+  changeOrder(order: ContactRequest) {
+    this.newOrder.next(order);
+
+    //  this.isLogged.subscribe(x => console.log(x));
+    //  console.log(this.newOrder);
   }
 
   async getMenu(id: string): Promise<any> {
@@ -97,6 +111,7 @@ export class MenuService {
     if (!userId) return;
 
     const userRef = this.firestore.collection('bookingOrders').doc(`${userId}`);
+    console.log(userRef);
   };
 
   createDateScope() {
@@ -127,6 +142,40 @@ export class MenuService {
 
   returnId() {
     return this.uniqueId;
+  }
+
+  async checkIfUserBooked() {
+    //  this.firestore.collection('bookingOrders').doc(`${this.userRefId}`)
+    //    ? (this.userBooked = true)
+    //    : (this.userBooked = false);
+    //  let userBooked = false;
+    //  console.log('test');
+
+    await this.getUserId();
+    await this.firestore
+      .collection('bookingOrders')
+      .doc(`${this.userRefId}`)
+      .snapshotChanges()
+      .pipe(first())
+      .toPromise()
+      .then(x => (this.isBooked = x.payload.exists));
+    console.log(this.isBooked);
+  }
+
+  async getUserOrder() {
+    await this.getUserId();
+    await this.firestore
+      .collection('bookingOrders')
+      .doc(`${this.userRefId}`)
+      .get()
+      .toPromise()
+      .then(x => (this.userOrder = x.data()));
+    console.log(this.userOrder);
+    return this.userOrder;
+  }
+
+  getBookStatus() {
+    return this.isBooked;
   }
 
   //   checkId(generateId: string) {

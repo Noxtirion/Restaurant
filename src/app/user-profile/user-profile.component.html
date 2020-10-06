@@ -1,0 +1,12 @@
+<section class="user-profile" id="user-profile">
+  <p>USER PROFILE COMPONENT</p>
+  <a class="user-profile__log-button" routerLink="/menus" (click)="logout()">LOG OUT</a>
+  <a class="user-profile__log-button" (click)="openDialog()">BOOK TABLE</a>
+
+  <ng-container class="user-profile__order" *ngIf="userOrder">
+    <div>First Name: {{ userOrder?.firstName }}</div>
+    <div>Last Name: {{ userOrder?.lastName }}</div>
+    <div>Number of Guests: {{ userOrder?.numberOfGuests }}</div>
+    <div>Time: {{ userOrder?.timeAvalible }}</div>
+  </ng-container>
+</section>

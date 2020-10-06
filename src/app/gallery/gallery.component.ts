@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-gallery',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
-
-  constructor() { }
+  constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
+    //  this.menuService.isLogged.subscribe(x => console.log(x));
   }
-
 }

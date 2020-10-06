@@ -43,8 +43,7 @@
     margin: 10px 0;
   }
 
-  &__book,
-  &__log-button {
+  &__book {
     @include flex-container;
     height: 100px;
     width: 100%;

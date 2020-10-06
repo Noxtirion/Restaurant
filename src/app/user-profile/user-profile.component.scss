@@ -1,0 +1,21 @@
+@mixin flex-container($display: flex, $justify-content: center, $align-items: center) {
+  display: $display;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  @content;
+}
+
+.user-profile {
+  height: 100vh;
+  background-color: #bea57d;
+
+  &__log-button {
+    @include flex-container;
+    height: 100px;
+    width: 300px;
+    background-color: #080f0f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+}

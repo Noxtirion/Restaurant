@@ -1,57 +1,6 @@
-<ng-container *ngIf="!isSignedIn">
-  <h2 mat-dialog-title>Sign Up</h2>
+<ng-container *ngIf="!isSignedIn"> </ng-container>
 
-  <div class="sign-up">
-    <mat-form-field>
-      <mat-label>Email:</mat-label>
-      <input
-        type="text"
-        placeholder="default@example.com"
-        name="EmailSignUp"
-        matInput
-        #emailSignUp
-      />
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Password:</mat-label>
-      <input type="text" matInput #passwordSignUp placeholder="******" name="PasswordSignUp" />
-    </mat-form-field>
-
-    <button
-      type="button"
-      class="sign-button"
-      mat-raised-button
-      (click)="onSignUp(emailSignUp.value, passwordSignUp.value)"
-    >
-      Sign Up
-    </button>
-  </div>
-  <div class="sign-in">
-    <h2 mat-dialog-title class="sign-in-title">Sign In</h2>
-
-    <mat-form-field>
-      <mat-label>Email:</mat-label>
-      <input type="text" placeholder="default@example.com" name="Email" matInput #email />
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Password:</mat-label>
-      <input type="text" matInput #password placeholder="*******" name="Password" />
-    </mat-form-field>
-
-    <button
-      type="button"
-      class="sign-button"
-      mat-raised-button
-      (click)="onSignIn(email.value, password.value)"
-    >
-      Sign In
-    </button>
-  </div>
-</ng-container>
-
-<ng-container *ngIf="!uniqueId && !cancel && isSignedIn">
+<ng-container *ngIf="!uniqueId && isSignedIn">
   <h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
   <form class="booking-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="date-wrapper">
@@ -109,12 +58,14 @@
         />
       </mat-form-field>
 
-      <button type="submit" mat-button [disabled]="!contactForm.valid">Book</button>
+      <button type="submit" mat-button mat-dialog-close [disabled]="!contactForm.valid">
+        Book
+      </button>
     </div>
   </form>
 </ng-container>
 
-<ng-container *ngIf="uniqueId && !cancel">
+<!-- <ng-container *ngIf="uniqueId && !cancel">
   <h1 mat-dialog-title>
     Please write down or copy the following ID which will let You cancel reservation:
   </h1>
@@ -122,9 +73,9 @@
   <div class="unique-id">{{ uniqueId | uppercase }}</div>
 
   <p>In case of losing the ID please contact restaurant on phone number: 123-456-789. Thank You!</p>
-</ng-container>
+</ng-container> -->
 
-<ng-container *ngIf="cancel">
+<!-- <ng-container *ngIf="cancel">
   <h1 mat-dialog-title>
     Please provide Your unique Id:
   </h1>
@@ -141,9 +92,9 @@
     </mat-form-field>
     <button type="submit" mat-button [disabled]="!cancelForm.valid">Cancel</button>
   </form>
-</ng-container>
+</ng-container> -->
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button (click)="openCancel()" *ngIf="!cancel && false">Cancel reservation</button>
+  <!-- <button mat-button (click)="openCancel()" *ngIf="!cancel && false">Cancel reservation</button> -->
 </div>

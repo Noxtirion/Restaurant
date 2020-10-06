@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -23,6 +23,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MenuService } from './services/menu.service';
+import { LogInComponent } from './log-in/log-in.component';
+
+export function bookingProviderFactory(menuService: MenuService) {
+  return () => menuService.checkIfUserBooked();
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +42,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ContactComponent,
     MenuDetailsComponent,
     SpinnerComponent,
-    BookingPopupComponent
+    BookingPopupComponent,
+    UserProfileComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +61,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    MenuService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: bookingProviderFactory,
+      deps: [MenuService],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -17,7 +17,14 @@
     </ul>
   </nav>
   <div class="navbar__logging">
-    <button class="navbar__log-button" (click)="logout()">{{ logButtonText }}</button>
-    <button class="navbar__book" (click)="openDialog()">BOOK A TABLE</button>
+    <button
+      class="navbar__book"
+      *ngIf="!isLogged"
+      (click)="openDialog(); getLog()"
+      [disabled]="isLogged"
+    >
+      LOG IN
+    </button>
+    <a class="navbar__book" *ngIf="isLogged" routerLink="/user-profile">YOUR PROFILE</a>
   </div>
 </section>
