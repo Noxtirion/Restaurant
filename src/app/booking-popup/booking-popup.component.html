@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isSignedIn"> </ng-container>
+<!-- <ng-container *ngIf="!isSignedIn"> </ng-container> -->
 
 <ng-container *ngIf="!uniqueId && isSignedIn">
   <h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
@@ -14,9 +14,11 @@
           [min]="minDate"
           [max]="maxDate"
           (dateInput)="getDate($event)"
+          [readonly]="true"
         />
         <mat-datepicker disabled="false" #picker></mat-datepicker>
       </mat-form-field>
+
       <button type="button" mat-raised-button (click)="picker.open()">Open</button>
     </div>
 

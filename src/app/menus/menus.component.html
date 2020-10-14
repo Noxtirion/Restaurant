@@ -6,7 +6,7 @@
       *ngFor="let product of products"
       [routerLink]="['/menu', product.id]"
     >
-      <img src="{{ product.imageSrc }}" alt="breakfasts" class="menus__image" />
+      <img src="{{ product.imageSrc }}" alt="dish" class="menus__image" />
       <div class="menus__description">
         <div class="menus__description-type">{{ product.dishType }}</div>
       </div>

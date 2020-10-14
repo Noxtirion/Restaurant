@@ -25,6 +25,12 @@
     >
       LOG IN
     </button>
-    <a class="navbar__book" *ngIf="isLogged" routerLink="/user-profile">YOUR PROFILE</a>
+    <a
+      class="navbar__book"
+      *ngIf="isLogged"
+      routerLink="/user-profile"
+      (click)="onClickScroll('user-profile')"
+      >YOUR PROFILE</a
+    >
   </div>
 </section>
