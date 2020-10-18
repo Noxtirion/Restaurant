@@ -80,7 +80,7 @@
           #userElement
         >
           <div class="user-profile__single-order-wrapper">
-            <h3 class="user-profile__single-order-title">{{ user.guest }}</h3>
+            <h3 class="user-profile__single-order-title">Guest {{ user.id }} order:</h3>
             <button (click)="removeOrder(userElement)" class="user-profile__single-order-button">
               <span>&#10007;</span>
             </button>
@@ -93,7 +93,9 @@
             </div>
           </div>
         </div>
-        <button>SEND ORDER</button>
+        <button type="submit" class="user-profile__submit" (click)="createMenuOrder()">
+          SUBMIT ORDER
+        </button>
       </div>
     </div>
   </ng-container>

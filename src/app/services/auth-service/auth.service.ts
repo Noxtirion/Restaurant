@@ -4,21 +4,26 @@ import { MenuService } from '../menu.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   isLoggedIn: boolean = false;
   isLogged = new BehaviorSubject<boolean>(false);
 
-  constructor(private fireAuth: AngularFireAuth, private menuService: MenuService) {}
+  constructor(
+    private fireAuth: AngularFireAuth,
+    private menuService: MenuService
+  ) {}
 
   async signIn(email: string, password: string) {
     try {
-      await this.fireAuth.signInWithEmailAndPassword(email, password).then(res => {
-        this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(res.user));
-        //   console.log(this.isLoggedIn);
-      });
+      await this.fireAuth
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => {
+          this.isLoggedIn = true;
+          localStorage.setItem('user', JSON.stringify(res.user));
+          //   console.log(this.isLoggedIn);
+        });
     } catch (error) {
       console.error(error.message);
     }
@@ -26,12 +31,14 @@ export class AuthService {
 
   async signUp(email: string, password: string) {
     try {
-      await this.fireAuth.createUserWithEmailAndPassword(email, password).then(res => {
-        const { uid } = res.user;
-        this.menuService.createUserProfileDocument(uid);
-        this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(res.user));
-      });
+      await this.fireAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+          const { uid } = res.user;
+          this.menuService.createUserProfileDocument(uid);
+          this.isLoggedIn = true;
+          localStorage.setItem('user', JSON.stringify(res.user));
+        });
     } catch (error) {
       console.error(error.message);
     }

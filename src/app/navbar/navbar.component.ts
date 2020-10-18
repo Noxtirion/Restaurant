@@ -9,12 +9,13 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   //   isBooked: boolean = false;
   isLogged: boolean = false;
   subscription: Subscription;
+  isOpen: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -63,7 +64,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   getLog() {
-    this.subscription = this.authService.isLogged.subscribe(x => (this.isLogged = x));
+    this.subscription = this.authService.isLogged.subscribe(
+      (x) => (this.isLogged = x)
+    );
     //  console.log(this.isLogged);
+  }
+
+  openMenu() {
+    this.isOpen = !this.isOpen;
+    console.log(this.isOpen);
   }
 }

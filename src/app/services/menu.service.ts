@@ -10,7 +10,7 @@ import { ContactRequest, CancelRequest } from '../models/booking-popup.model';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
   //   private products: Products[];
@@ -33,10 +33,17 @@ export class MenuService {
 
   //   private userBooked: boolean = false;
 
-  constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth) {
+  constructor(
+    private firestore: AngularFirestore,
+    private fireAuth: AngularFireAuth
+  ) {
     this.items = this.firestore.collection('menus').valueChanges();
-    this.bookOrders = this.firestore.collection('bookingOrders').snapshotChanges();
-    this.bookOrdersValue = this.firestore.collection('bookingOrders').valueChanges();
+    this.bookOrders = this.firestore
+      .collection('bookingOrders')
+      .snapshotChanges();
+    this.bookOrdersValue = this.firestore
+      .collection('bookingOrders')
+      .valueChanges();
     //  this.createId();
 
     //  firestore
@@ -54,24 +61,63 @@ export class MenuService {
   }
 
   getOrderPerUser(order: number) {
+    if (order === 10) return (this.orderPerUser = []);
 
-   if (order === 10) return this.orderPerUser = []; 
+    this.orderPerUser = this.orderPerUser.filter(
+      (x) => x.id !== (order + 1).toString()
+    );
+    this.orderPerUser.push({
+      id: (order + 1).toString(),
+      menu: this.chosenMenu,
+    });
 
-   this.orderPerUser = this.orderPerUser.filter(x => x.id !== (order + 1).toString());
-   this.orderPerUser.push( { id: (order + 1).toString(), guest: `Guest ${order + 1} order:`, menu: this.chosenMenu});
+    console.log(this.orderPerUser);
 
-   console.log(this.orderPerUser);
+    return this.orderPerUser.sort(this.sortOrder);
+  }
 
-   return this.orderPerUser.sort(this.sortOrder)
-}
+  removeOrder(element: { dataset: { userId: any } }) {
+    let userId = element.dataset.userId;
 
-removeOrder(element: { dataset: { userId: any; }; }) {
-   let userId = element.dataset.userId;
+    this.orderPerUser = this.orderPerUser.filter((x) => x.id !== userId);
 
-   this.orderPerUser = this.orderPerUser.filter(x => x.id !== userId)
-   
-   return this.orderPerUser
-}
+    return this.orderPerUser;
+  }
+
+  async createMenuOrder() {
+    try {
+      await this.getUserId();
+    } catch (error) {
+      console.error(error);
+    }
+
+    const orderPerUserToObject = this.orderPerUser.reduce(
+      (acc, key) => ({ ...acc, [`guest${key.id}`]: key }),
+      {}
+    );
+
+    //  console.log(orderPerUserToObject);
+    this.userRefId &&
+      this.firestore
+        .collection('guestOrder')
+        .doc(`${this.userRefId}`)
+        .set(orderPerUserToObject);
+  }
+
+  async getMenuOrder() {
+    await this.getUserId();
+    if (!this.userRefId) return;
+    return this.firestore
+      .collection('guestOrder')
+      .doc(`${this.userRefId}`)
+      .get()
+      .toPromise()
+      .then((x) => {
+        if (!x.data()) return;
+        this.orderPerUser = Object.values(x.data());
+        return Object.values(x.data());
+      });
+  }
 
   changeOrder(order: ContactRequest) {
     this.newOrder.next(order);
@@ -110,8 +156,8 @@ removeOrder(element: { dataset: { userId: any; }; }) {
     return this.items
       .pipe(first())
       .toPromise()
-      .then(x => x.find(item => item.id === id))
-      .then(x => x);
+      .then((x) => x.find((item) => item.id === id))
+      .then((x) => x);
   }
 
   getMenuItem(item: any, dish: { innerText: any }) {
@@ -124,18 +170,20 @@ removeOrder(element: { dataset: { userId: any; }; }) {
     this.chosenMenu.push({
       dishType: dish.innerText,
       order: { name: item.name, price: item.price },
-      id: id
+      id: id,
     });
     this.chosenMenu.sort(this.sortOrder);
     return this.chosenMenu;
   }
 
   resetChosenMenu() {
-   this.chosenMenu = [];
+    this.chosenMenu = [];
   }
 
   checkMenuItem(dish: { innerText: any }) {
-    this.chosenMenu = this.chosenMenu.filter(element => element.dishType !== dish.innerText);
+    this.chosenMenu = this.chosenMenu.filter(
+      (element) => element.dishType !== dish.innerText
+    );
 
     console.log(this.chosenMenu);
   }
@@ -144,7 +192,7 @@ removeOrder(element: { dataset: { userId: any; }; }) {
     return this.items
       .pipe(first())
       .toPromise()
-      .then(x => x.sort(this.sortOrder));
+      .then((x) => x.sort(this.sortOrder));
   }
 
   private sortOrder(a: { id: string }, b: { id: string }) {
@@ -158,7 +206,7 @@ removeOrder(element: { dataset: { userId: any; }; }) {
       numberOfGuests: new FormControl(null, [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      uniqueId: new FormControl('')
+      uniqueId: new FormControl(''),
     });
   }
 
@@ -167,7 +215,9 @@ removeOrder(element: { dataset: { userId: any; }; }) {
       await this.fireAuth.authState
         .pipe(first())
         .toPromise()
-        .then(user => (user !== null ? (this.userRefId = user.uid) : (this.userRefId = null)));
+        .then((user) =>
+          user !== null ? (this.userRefId = user.uid) : (this.userRefId = null)
+        );
     } catch (error) {
       console.error(error);
     }
@@ -204,7 +254,12 @@ removeOrder(element: { dataset: { userId: any; }; }) {
   createDateScope() {
     const today = new Date();
     const currentYear = new Date().getFullYear();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate() + 1);
+    const date =
+      today.getFullYear() +
+      '-' +
+      (today.getMonth() + 1) +
+      '-' +
+      (today.getDate() + 1);
 
     this.minDate = new Date(date);
     this.maxDate = new Date(currentYear + 0, 11, 31);
@@ -214,14 +269,12 @@ removeOrder(element: { dataset: { userId: any; }; }) {
 
   createCancelForm() {
     return new FormGroup({
-      uniqueId: new FormControl('')
+      uniqueId: new FormControl(''),
     });
   }
 
   createId() {
-    const generateId = uuidv4()
-      .substring(0, 8)
-      .toUpperCase();
+    const generateId = uuidv4().substring(0, 8).toUpperCase();
 
     //  this.checkId(generateId);
     this.uniqueId = generateId;
@@ -245,18 +298,23 @@ removeOrder(element: { dataset: { userId: any; }; }) {
       .snapshotChanges()
       .pipe(first())
       .toPromise()
-      .then(x => (this.isBooked = x.payload.exists));
+      .then((x) => (this.isBooked = x.payload.exists));
     console.log(this.isBooked);
   }
 
   async getUserOrder() {
     await this.getUserId();
+
+    //  if (!this.userRefId) return;
     await this.firestore
       .collection('bookingOrders')
       .doc(`${this.userRefId}`)
       .get()
       .toPromise()
-      .then(x => (this.userOrder = x.data()));
+      .then((x) => {
+        if (!x.data()) return;
+        this.userOrder = x.data();
+      });
     //  console.log(this.userOrder);
     return this.userOrder;
   }

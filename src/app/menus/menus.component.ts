@@ -5,7 +5,7 @@ import { Offer } from '../models/product';
 @Component({
   selector: 'app-menus',
   templateUrl: './menus.component.html',
-  styleUrls: ['./menus.component.scss']
+  styleUrls: ['./menus.component.scss'],
 })
 export class MenusComponent implements OnInit {
   products: Offer[] = OFFER;

@@ -2,6 +2,10 @@
   height: 100vh;
   margin-right: 300px;
 
+  @media (max-width: 1100px) {
+    margin-right: 0;
+  }
+
   &__title {
     text-align: center;
     margin: 0 auto;
@@ -22,6 +26,11 @@
       margin: 0.8rem;
       position: relative;
       background-color: rgb(230, 230, 230);
+
+      @media (max-width: 470px) {
+        width: 50%;
+        min-width: 200px;
+      }
 
       .menu-details__top-info {
         display: flex;

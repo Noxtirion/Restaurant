@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.checkUserBook();
     await this.getUserOrder();
     console.log(this.menuPerPerson);
+    await this.getMenuOrder()
     this.isLoaded = true;
     console.log(this.chosenMenu );
    //  this.orderPerUser = JSON.parse(localStorage.getItem('order'));
@@ -50,14 +51,20 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 this.orderPerUser = this.menuService.getOrderPerUser(order)
 // localStorage.setItem('order', JSON.stringify(this.orderPerUser));
 this.chosenMenu = null;
-this.menuService.resetChosenMenu()
+this.menuService.resetChosenMenu();
 
 console.log(this.orderPerUser);
 // console.log(order);
 }
 
 removeOrder(element: { dataset: { userId: any; }; }) {
-  this.orderPerUser = this.menuService.removeOrder(element)
+  this.orderPerUser = this.menuService.removeOrder(element);
+  this.createMenuOrder();
+}
+
+
+async getMenuOrder() {
+   await this.menuService.getMenuOrder().then(x =>  this.orderPerUser = x)
 }
 
   getNumberOfguests() {
@@ -99,8 +106,13 @@ removeOrder(element: { dataset: { userId: any; }; }) {
     await this.menuService.getUserOrder().then(x => {
       this.userOrder = x;
       // this.numberOfGuests.push();
-      this.menuService.changeMenu(this.userOrder.numberOfGuests);
+
+     if (this.userOrder) this.menuService.changeMenu(this.userOrder.numberOfGuests);
     });
+  }
+
+  createMenuOrder() {
+     this.menuService.createMenuOrder()
   }
 
   getOrder() {

@@ -28,7 +28,7 @@ export interface SingleOrder {
   price: number;
 }
 
-export interface OrderPerUserArray { id: string; guest: string; menu: ProductOrder[]};
+export interface OrderPerUserArray { id: string; menu: ProductOrder[]};
 
 // export class OrderPerUserModel { id: string = ""; guest: string = ""; menu: SingleMenu[]};
 

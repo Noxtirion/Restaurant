@@ -1,4 +1,8 @@
-@mixin flex-container($display: flex, $justify-content: center, $align-items: center) {
+@mixin flex-container(
+  $display: flex,
+  $justify-content: center,
+  $align-items: center
+) {
   display: $display;
   justify-content: $justify-content;
   align-items: $align-items;
@@ -9,6 +13,10 @@
   height: 100vh;
   background-color: #bea57d;
   margin-right: 300px;
+
+  @media (max-width: 1100px) {
+    margin-right: 0;
+  }
 
   &__wrapper {
     display: flex;
@@ -107,6 +115,11 @@
       color: #fff;
       border: none;
       cursor: pointer;
+      border: 1px transparent solid;
+
+      &:hover {
+        border: 1px #fff solid;
+      }
     }
 
     .user-profile__log-button--order {
