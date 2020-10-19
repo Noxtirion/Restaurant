@@ -28,12 +28,21 @@ export interface SingleOrder {
   price: number;
 }
 
-export interface OrderPerUserArray { id: string; menu: ProductOrder[]};
+export interface OrderPerUserArray {
+  id: string;
+  menu: ProductOrder[];
+}
+
+export interface Gallery {
+  id: string;
+  imageSrc: string;
+  authorSrc: string;
+  authorName: string;
+  siteUrl: string;
+}
 
 // export class OrderPerUserModel { id: string = ""; guest: string = ""; menu: SingleMenu[]};
 
 // export class SingleMenu {dishType: string = ""; order: Order[]; id: string = ""};
 
 // export class Order {name: string = ""; price: number = 0}
-
-

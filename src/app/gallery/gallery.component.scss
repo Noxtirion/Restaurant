@@ -1,7 +1,9 @@
 .gallery {
-  height: 100vh;
-  background-color: #a52422;
+  min-height: 100vh;
+  background-color: #080f0f;
   margin-right: 300px;
+  background: url(../../assets/gallery-images/gallery-background-gray.jpg)
+    no-repeat center center fixed;
 
   @media (max-width: 1100px) {
     margin-right: 0;
@@ -11,5 +13,95 @@
     padding: 3rem 0;
     margin: 0;
     text-align: center;
+    color: #bea57d;
+    background-color: #080f0f;
+    border-bottom: 2px solid #bea57d;
+
+    @media (max-width: 1300px) {
+      border: none;
+    }
   }
+
+  &__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    place-items: center;
+    background-image: linear-gradient(#080f0f, transparent, #080f0f);
+    padding-top: 6rem;
+
+    @media (max-width: 1800px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 1300px) {
+      grid-template-columns: 1fr;
+      padding-top: 0rem;
+    }
+
+    .gallery__figure {
+      height: 470px;
+      width: 420px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      @media (max-width: 1800px) and (min-width: 1500px),
+        (max-width: 1300px) and (min-width: 620px) {
+        height: 570px;
+        width: 520px;
+      }
+
+      @media (max-width: 520px) {
+        height: 370px;
+        width: 320px;
+        margin: 1rem 0;
+      }
+
+      .gallery__single-image {
+        height: 400px;
+        width: 400px;
+        border: 2px solid #bea57d;
+        padding: 0.5rem;
+
+        @media (max-width: 1800px) and (min-width: 1500px),
+          (max-width: 1300px) and (min-width: 620px) {
+          height: 500px;
+          width: 500px;
+        }
+
+        @media (max-width: 520px) {
+          height: 300px;
+          width: 300px;
+          padding: 0.4rem;
+        }
+      }
+
+      .gallery__description {
+        padding: 1rem 0;
+        color: #bea57d;
+
+        @media (max-width: 330px) {
+          margin-left: 8px;
+        }
+
+        a {
+          text-decoration: none;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  //   &__background-description {
+  //     padding-top: 3rem;
+  //     background-color: #080f0f;
+  //     color: #bea57d;
+  //     text-align: center;
+
+  //     a {
+  //       text-decoration: none;
+  //       color: #fff;
+  //     }
+  //   }
 }

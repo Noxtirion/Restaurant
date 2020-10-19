@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../services/menu.service';
+import { GALLERY } from '../models/database';
+import { Gallery } from '../models/product';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
-  constructor(private menuService: MenuService) {}
+  galleryImages: Gallery[] = GALLERY;
 
-  ngOnInit(): void {
-    //  this.menuService.isLogged.subscribe(x => console.log(x));
-  }
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  // getImages() {
+  //    this.galleryImages
+  // }
 }

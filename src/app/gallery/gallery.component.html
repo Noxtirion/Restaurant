@@ -1,3 +1,29 @@
 <section class="gallery" id="gallery">
   <h2 class="gallery__title">GALLERY</h2>
+
+  <div class="gallery__images">
+    <figure *ngFor="let image of galleryImages" class="gallery__figure">
+      <img
+        src="{{ image.imageSrc }}"
+        alt="gallery"
+        class="gallery__single-image"
+      />
+      <figcaption class="gallery__description">
+        Photo by <a href="{{ image.authorSrc }}">{{ image.authorName }}</a> on
+        <a href="{{ image.siteUrl }}">Unsplash</a>
+      </figcaption>
+    </figure>
+  </div>
+  <!-- <div class="gallery__background-description">
+    Gallery background by
+    <a
+      href="https://unsplash.com/@rokjecar?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+      >Rok Zabukovec</a
+    >
+    on
+    <a
+      href="https://unsplash.com/s/photos/restaurant?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"
+      >Unsplash</a
+    >
+  </div> -->
 </section>

@@ -1,26 +1,181 @@
 // import { Products } from './product';
 import { Offer } from './product';
+import { Gallery } from './product';
 
 export const OFFER: Offer[] = [
-  { id: '1', dishType: 'BREAKFAST', imageSrc: '../../assets/menus-images/breakfast.jpg' },
-  { id: '2', dishType: 'MAIN COURSE', imageSrc: '../../assets/menus-images/dinner.jpg' },
-  { id: '3', dishType: 'DESSERTS', imageSrc: '../../assets/menus-images/desserts.jpg' },
-  { id: '4', dishType: 'DRINKS', imageSrc: '../../assets/menus-images/drinks.jpg' }
+  {
+    id: '1',
+    dishType: 'BREAKFAST',
+    imageSrc: '../../assets/menus-images/breakfast.jpg',
+  },
+  {
+    id: '2',
+    dishType: 'MAIN COURSE',
+    imageSrc: '../../assets/menus-images/dinner.jpg',
+  },
+  {
+    id: '3',
+    dishType: 'DESSERTS',
+    imageSrc: '../../assets/menus-images/desserts.jpg',
+  },
+  {
+    id: '4',
+    dishType: 'DRINKS',
+    imageSrc: '../../assets/menus-images/drinks.jpg',
+  },
 ];
 
 export const numberOfTables = [
   {
     id: '1',
-    two: 3
+    two: 3,
   },
   {
     id: '2',
-    four: 5
+    four: 5,
   },
   {
     id: '3',
-    six: 4
-  }
+    six: 4,
+  },
+];
+
+export const GALLERY: Gallery[] = [
+  {
+    id: '1',
+    imageSrc: '../../assets/gallery-images/food/food1.jpg',
+    authorSrc:
+      'https://unsplash.com/@miracletwentyone?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Joseph Gonzalez',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '2',
+    imageSrc: '../../assets/gallery-images/food/food2.jpg',
+    authorSrc:
+      'https://unsplash.com/@calumlewis?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Calum Lewis',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '3',
+    imageSrc: '../../assets/gallery-images/food/food3.jpg',
+    authorSrc:
+      'https://unsplash.com/@brookelark?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Brooke Lark',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '4',
+    imageSrc: '../../assets/gallery-images/food/food4.jpg',
+    authorSrc:
+      'https://unsplash.com/@calya1?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Cayla1',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '5',
+    imageSrc: '../../assets/gallery-images/food/food5.jpg',
+    authorSrc:
+      'https://unsplash.com/@brookelark?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Brooke Lark',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '6',
+    imageSrc: '../../assets/gallery-images/food/food6.jpg',
+    authorSrc:
+      'https://unsplash.com/@edgarraw?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Edgar Castrejon',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '7',
+    imageSrc: '../../assets/gallery-images/food/food7.jpg',
+    authorSrc:
+      'https://unsplash.com/@emilianovittoriosi?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Emiliano Vittoriosi',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '8',
+    imageSrc: '../../assets/gallery-images/food/food8.jpg',
+    authorSrc:
+      'https://unsplash.com/@brookelark?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Brooke Lark',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '9',
+    imageSrc: '../../assets/gallery-images/food/food9.jpg',
+    authorSrc:
+      'https://unsplash.com/@moniqa?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Monika Grabkowska',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '10',
+    imageSrc: '../../assets/gallery-images/food/food10.jpg',
+    authorSrc:
+      'https://unsplash.com/@brookelark?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Brooke Lark',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '11',
+    imageSrc: '../../assets/gallery-images/food/food11.jpg',
+    authorSrc:
+      'https://unsplash.com/@brookelark?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Brooke Lark',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '12',
+    imageSrc: '../../assets/gallery-images/food/food12.jpg',
+    authorSrc:
+      'https://unsplash.com/@thanospal?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Thanos Pal',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '13',
+    imageSrc: '../../assets/gallery-images/food/food13.jpg',
+    authorSrc:
+      'https://unsplash.com/@marius_dragne?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Dragne Marius',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '14',
+    imageSrc: '../../assets/gallery-images/food/food14.jpg',
+    authorSrc:
+      'https://unsplash.com/@samhoajti?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Sam Hojati',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
+  {
+    id: '15',
+    imageSrc: '../../assets/gallery-images/food/food15.jpg',
+    authorSrc:
+      'https://unsplash.com/@abhishek_sanwa?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+    authorName: 'Abhishek Sanwa Limbu',
+    siteUrl:
+      'https://unsplash.com/s/photos/food?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText',
+  },
 ];
 
 // export const PRODUCTS: Products[] = [
