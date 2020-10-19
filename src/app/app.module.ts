@@ -26,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MenuService } from './services/menu.service';
 import { LogInComponent } from './log-in/log-in.component';
+import { FooterComponent } from './footer/footer.component';
 
 export function bookingProviderFactory(menuService: MenuService) {
   return () => menuService.checkIfUserBooked();
@@ -44,7 +45,8 @@ export function bookingProviderFactory(menuService: MenuService) {
     SpinnerComponent,
     BookingPopupComponent,
     UserProfileComponent,
-    LogInComponent
+    LogInComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

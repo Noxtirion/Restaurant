@@ -10,7 +10,7 @@ import { Products, ProductOrder, OrderPerUserArray } from '../models/product';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   isUserBook: boolean = false;
@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   numberOfGuests: any;
   isLoaded: boolean = false;
   chosenMenu: ProductOrder[];
-  orderPerUser:OrderPerUserArray[] = [];
+  orderPerUser: OrderPerUserArray[] = [];
 
   constructor(
     public authService: AuthService,
@@ -36,10 +36,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.checkUserBook();
     await this.getUserOrder();
     console.log(this.menuPerPerson);
-    await this.getMenuOrder()
+    await this.getMenuOrder();
     this.isLoaded = true;
-    console.log(this.chosenMenu );
-   //  this.orderPerUser = JSON.parse(localStorage.getItem('order'));
+    console.log(this.chosenMenu);
+    //  this.orderPerUser = JSON.parse(localStorage.getItem('order'));
   }
 
   ngOnDestroy() {
@@ -48,29 +48,30 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   getOrderPerUser(order: number) {
-this.orderPerUser = this.menuService.getOrderPerUser(order)
-// localStorage.setItem('order', JSON.stringify(this.orderPerUser));
-this.chosenMenu = null;
-this.menuService.resetChosenMenu();
+    this.orderPerUser = this.menuService.getOrderPerUser(order);
+    // localStorage.setItem('order', JSON.stringify(this.orderPerUser));
+    this.chosenMenu = null;
+    this.menuService.resetChosenMenu();
 
-console.log(this.orderPerUser);
-// console.log(order);
-}
+    console.log(this.orderPerUser);
+    // console.log(order);
+  }
 
-removeOrder(element: { dataset: { userId: any; }; }) {
-  this.orderPerUser = this.menuService.removeOrder(element);
-  this.createMenuOrder();
-}
+  removeOrder(element: { dataset: { userId: any } }) {
+    this.orderPerUser = this.menuService.removeOrder(element);
+    this.createMenuOrder();
+  }
 
-
-async getMenuOrder() {
-   await this.menuService.getMenuOrder().then(x =>  this.orderPerUser = x)
-}
+  async getMenuOrder() {
+    await this.menuService.getMenuOrder().then((x) => (this.orderPerUser = x));
+  }
 
   getNumberOfguests() {
     // add unsubscribe!!!!!
     console.log(this.numberOfGuests);
-    this.guestSubscription = this.menuService.newBookMenu.subscribe(x => (this.numberOfGuests = x));
+    this.guestSubscription = this.menuService.newBookMenu.subscribe(
+      (x) => (this.numberOfGuests = x)
+    );
   }
 
   getMenuItem(item: any, dish: { innerText: any }) {
@@ -79,7 +80,7 @@ async getMenuOrder() {
   }
 
   bookMenu() {
-    this.menuService.bookMenu().then(x => {
+    this.menuService.bookMenu().then((x) => {
       this.menuPerPerson = x;
     });
   }
@@ -92,9 +93,8 @@ async getMenuOrder() {
 
   openDialog() {
     this.getOrderPerUser(10);
-   //  localStorage.removeItem('order');
+    //  localStorage.removeItem('order');
     this.dialog.open(BookingPopupComponent);
-    
   }
 
   checkUserBook() {
@@ -103,19 +103,22 @@ async getMenuOrder() {
   }
 
   async getUserOrder() {
-    await this.menuService.getUserOrder().then(x => {
+    await this.menuService.getUserOrder().then((x) => {
       this.userOrder = x;
       // this.numberOfGuests.push();
 
-     if (this.userOrder) this.menuService.changeMenu(this.userOrder.numberOfGuests);
+      if (this.userOrder)
+        this.menuService.changeMenu(this.userOrder.numberOfGuests);
     });
   }
 
   createMenuOrder() {
-     this.menuService.createMenuOrder()
+    this.menuService.createMenuOrder();
   }
 
   getOrder() {
-    this.subscription = this.menuService.newOrder.subscribe(x => (this.userOrder = x));
+    this.subscription = this.menuService.newOrder.subscribe(
+      (x) => (this.userOrder = x)
+    );
   }
 }

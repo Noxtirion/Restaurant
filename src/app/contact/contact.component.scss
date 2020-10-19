@@ -1,6 +1,6 @@
 .contact {
   min-height: 100vh;
-  background-color: #bea57d;
+  //   background-color: #bea57d;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,8 +13,11 @@
 
   &__title {
     padding: 3rem 0;
+    width: 100%;
     margin: 0;
     text-align: center;
+    color: #bea57d;
+    background-color: #080f0f;
   }
 
   &__map-wrapper {
