@@ -29,7 +29,7 @@ $shine3: #6c5937;
         0 -0.5rem 2rem $shine3, 0 0.5rem 3rem $shine3;
       animation: shine 2s forwards, flicker 3s infinite;
 
-      @media (max-width: 1200px) {
+      @media (max-width: 1300px) {
         font-size: 6rem;
       }
 
@@ -54,7 +54,7 @@ $shine3: #6c5937;
       &--bottom {
         font-size: 6rem;
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1300px) {
           font-size: 4rem;
         }
 
