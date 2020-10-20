@@ -1,12 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MenuService } from '../services/menu.service';
 
 @Component({
   selector: 'app-main-background',
   templateUrl: './main-background.component.html',
-  styleUrls: ['./main-background.component.scss']
+  styleUrls: ['./main-background.component.scss'],
 })
-export class MainBackgroundComponent implements OnInit {
-  constructor() {}
+export class MainBackgroundComponent {
+  @ViewChild('top') top: { nativeElement: any };
 
-  ngOnInit(): void {}
+  constructor(private menuService: MenuService) {}
+
+  ngAfterViewInit(): void {
+    this.intersection(this.top.nativeElement);
+  }
+
+  intersection(element: HTMLElement) {
+    const config = {
+      rootMargin: '250px',
+      threshold: 1.0,
+    };
+
+    this.menuService
+      .fromIntersectionObserver(element, config)
+      .subscribe((x) => {
+        this.menuService.changeAnchorStatus(!x);
+      });
+  }
 }

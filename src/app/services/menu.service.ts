@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProductOrder, Products, OrderPerUserArray } from '../models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, pipe, Subject } from 'rxjs';
+import { Observable, pipe, Subject, BehaviorSubject } from 'rxjs';
 import { first, tap } from 'rxjs/operators';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ContactRequest, CancelRequest } from '../models/booking-popup.model';
@@ -30,6 +30,7 @@ export class MenuService {
   newBookMenu = new Subject();
   numberOfGuests: any;
   orderPerUser: OrderPerUserArray[] = [];
+  anchor = new BehaviorSubject<boolean>(false);
 
   //   private userBooked: boolean = false;
 
@@ -360,4 +361,41 @@ export class MenuService {
   //     const numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
   //     const timeAvalible: string[] = ['14:00', '16:00', '18:00', '20:00', '22:00'];
   //   }
+
+  // INTERSECTION OBSERVER
+
+  fromIntersectionObserver(
+    element: HTMLElement,
+    config: IntersectionObserverInit,
+    stopWhenVisible = false
+  ) {
+    return new Observable<boolean>((subscriber) => {
+      const intersectionObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            subscriber.next(entry.isIntersecting);
+            if (stopWhenVisible && entry.isIntersecting)
+              observer.unobserve(entry.target);
+          });
+        },
+        config
+      );
+
+      intersectionObserver.observe(element);
+
+      return {
+        unsubscribe() {
+          intersectionObserver.disconnect();
+        },
+      };
+    });
+  }
+
+  changeAnchorStatus(bool: boolean) {
+    this.anchor.next(bool);
+  }
+
+  getAnchorStatus() {
+    return this.anchor;
+  }
 }
