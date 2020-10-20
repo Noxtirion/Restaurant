@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MenuService } from '../services/menu.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-main-background',
@@ -9,7 +9,7 @@ import { MenuService } from '../services/menu.service';
 export class MainBackgroundComponent {
   @ViewChild('top') top: { nativeElement: any };
 
-  constructor(private menuService: MenuService) {}
+  constructor(private sharedService: SharedService) {}
 
   ngAfterViewInit(): void {
     this.intersection(this.top.nativeElement);
@@ -21,10 +21,10 @@ export class MainBackgroundComponent {
       threshold: 1.0,
     };
 
-    this.menuService
+    this.sharedService
       .fromIntersectionObserver(element, config)
       .subscribe((x) => {
-        this.menuService.changeAnchorStatus(!x);
+        this.sharedService.changeAnchorStatus(!x);
       });
   }
 }

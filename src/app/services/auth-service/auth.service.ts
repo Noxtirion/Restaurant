@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MenuService } from '../menu.service';
+import { SharedService } from '../shared.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(
     private fireAuth: AngularFireAuth,
-    private menuService: MenuService
+    private sharedService: SharedService
   ) {}
 
   async signIn(email: string, password: string) {
@@ -35,7 +35,7 @@ export class AuthService {
         .createUserWithEmailAndPassword(email, password)
         .then((res) => {
           const { uid } = res.user;
-          this.menuService.createUserProfileDocument(uid);
+          this.sharedService.createUserProfileDocument(uid);
           this.isLoggedIn = true;
           localStorage.setItem('user', JSON.stringify(res.user));
         });

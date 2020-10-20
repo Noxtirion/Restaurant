@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LogInComponent } from '../log-in/log-in.component';
 import { ViewportScroller } from '@angular/common';
 import { AuthService } from '../services/auth-service/auth.service';
-import { MenuService } from '../services/menu.service';
+import { SharedService } from '../services/shared.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private viewportScroller: ViewportScroller,
     public authService: AuthService,
-    private menuService: MenuService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {

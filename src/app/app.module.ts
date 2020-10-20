@@ -24,13 +24,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { MenuService } from './services/menu.service';
+import { SharedService } from './services/shared.service';
 import { LogInComponent } from './log-in/log-in.component';
 import { FooterComponent } from './footer/footer.component';
 import { ScrollButtonComponent } from './scroll-button/scroll-button.component';
 
-export function bookingProviderFactory(menuService: MenuService) {
-  return () => menuService.checkIfUserBooked();
+export function bookingProviderFactory(sharedService: SharedService) {
+  return () => sharedService.checkIfUserBooked();
 }
 
 @NgModule({
@@ -48,7 +48,7 @@ export function bookingProviderFactory(menuService: MenuService) {
     UserProfileComponent,
     LogInComponent,
     FooterComponent,
-    ScrollButtonComponent
+    ScrollButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,17 +63,17 @@ export function bookingProviderFactory(menuService: MenuService) {
     MatInputModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
-    MenuService,
+    SharedService,
     {
       provide: APP_INITIALIZER,
       useFactory: bookingProviderFactory,
-      deps: [MenuService],
-      multi: true
-    }
+      deps: [SharedService],
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth-service/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingPopupComponent } from '../booking-popup/booking-popup.component';
-import { MenuService } from '../services/menu.service';
+import { SharedService } from '../services/shared.service';
 import { ContactRequest } from '../models/booking-popup.model';
 import { Subscription } from 'rxjs';
 import { Products, ProductOrder, OrderPerUserArray } from '../models/product';
@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     public authService: AuthService,
     public dialog: MatDialog,
-    private menuService: MenuService
+    private sharedService: SharedService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -48,39 +48,41 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   getOrderPerUser(order: number) {
-    this.orderPerUser = this.menuService.getOrderPerUser(order);
+    this.orderPerUser = this.sharedService.getOrderPerUser(order);
     // localStorage.setItem('order', JSON.stringify(this.orderPerUser));
     this.chosenMenu = null;
-    this.menuService.resetChosenMenu();
+    this.sharedService.resetChosenMenu();
 
     console.log(this.orderPerUser);
     // console.log(order);
   }
 
   removeOrder(element: { dataset: { userId: any } }) {
-    this.orderPerUser = this.menuService.removeOrder(element);
+    this.orderPerUser = this.sharedService.removeOrder(element);
     this.createMenuOrder();
   }
 
   async getMenuOrder() {
-    await this.menuService.getMenuOrder().then((x) => (this.orderPerUser = x));
+    await this.sharedService
+      .getMenuOrder()
+      .then((x) => (this.orderPerUser = x));
   }
 
   getNumberOfguests() {
     // add unsubscribe!!!!!
     console.log(this.numberOfGuests);
-    this.guestSubscription = this.menuService.newBookMenu.subscribe(
+    this.guestSubscription = this.sharedService.newBookMenu.subscribe(
       (x) => (this.numberOfGuests = x)
     );
   }
 
   getMenuItem(item: any, dish: { innerText: any }) {
-    this.chosenMenu = this.menuService.getMenuItem(item, dish);
+    this.chosenMenu = this.sharedService.getMenuItem(item, dish);
     console.log(this.chosenMenu);
   }
 
   bookMenu() {
-    this.menuService.bookMenu().then((x) => {
+    this.sharedService.bookMenu().then((x) => {
       this.menuPerPerson = x;
     });
   }
@@ -88,7 +90,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.changeLogging(false);
     this.authService.logout();
-    this.menuService.chosenMenu = [];
+    this.sharedService.chosenMenu = [];
   }
 
   openDialog() {
@@ -98,26 +100,26 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   checkUserBook() {
-    this.isUserBook = this.menuService.getBookStatus();
+    this.isUserBook = this.sharedService.getBookStatus();
     console.log(this.isUserBook);
   }
 
   async getUserOrder() {
-    await this.menuService.getUserOrder().then((x) => {
+    await this.sharedService.getUserOrder().then((x) => {
       this.userOrder = x;
       // this.numberOfGuests.push();
 
       if (this.userOrder)
-        this.menuService.changeMenu(this.userOrder.numberOfGuests);
+        this.sharedService.changeMenu(this.userOrder.numberOfGuests);
     });
   }
 
   createMenuOrder() {
-    this.menuService.createMenuOrder();
+    this.sharedService.createMenuOrder();
   }
 
   getOrder() {
-    this.subscription = this.menuService.newOrder.subscribe(
+    this.subscription = this.sharedService.newOrder.subscribe(
       (x) => (this.userOrder = x)
     );
   }

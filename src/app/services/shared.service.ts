@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable({
   providedIn: 'root',
 })
-export class MenuService {
+export class SharedService {
   //   private products: Products[];
   private items: Observable<any[]>;
   private bookOrders: Observable<any[]>;
@@ -153,13 +153,15 @@ export class MenuService {
     //  console.log(this.numberOfGuests);
   }
 
-  async getMenu(id: string): Promise<any> {
-    return this.items
-      .pipe(first())
-      .toPromise()
-      .then((x) => x.find((item) => item.id === id))
-      .then((x) => x);
-  }
+  ////////////////////////////////////////////////////
+  //   async getMenu(id: string): Promise<any> {
+  //     return this.items
+  //       .pipe(first())
+  //       .toPromise()
+  //       .then((x) => x.find((item) => item.id === id))
+  //       .then((x) => x);
+  //   }
+  ////////////////////////////////////////////////////
 
   getMenuItem(item: any, dish: { innerText: any }) {
     this.checkMenuItem(dish);

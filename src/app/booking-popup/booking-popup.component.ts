@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ContactRequest } from '../models/booking-popup.model';
-import { MenuService } from '../services/menu.service';
+import { SharedService } from '../services/shared.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-booking-popup',
   templateUrl: './booking-popup.component.html',
-  styleUrls: ['./booking-popup.component.scss']
+  styleUrls: ['./booking-popup.component.scss'],
 })
 export class BookingPopupComponent implements OnInit {
   contactForm: FormGroup;
@@ -23,19 +23,19 @@ export class BookingPopupComponent implements OnInit {
   numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
   timeAvalible: string[] = ['14:00', '16:00', '18:00', '20:00', '22:00'];
 
-  constructor(private menuService: MenuService) {}
+  constructor(private sharedService: SharedService) {}
 
   ngOnInit(): void {
-    this.menuService.createId();
-    this.contactForm = this.menuService.createFormGroup();
-    this.cancelForm = this.menuService.createCancelForm();
+    this.sharedService.createId();
+    this.contactForm = this.sharedService.createFormGroup();
+    this.cancelForm = this.sharedService.createCancelForm();
 
-    const [min, max] = this.menuService.createDateScope();
+    const [min, max] = this.sharedService.createDateScope();
 
     this.minDate = min;
     this.maxDate = max;
 
-    this.menuService.checkUserIsLogged().then(res => {
+    this.sharedService.checkUserIsLogged().then((res) => {
       if (res) this.isSignedIn = true;
     });
   }
@@ -47,7 +47,7 @@ export class BookingPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.uniqueId = this.menuService.returnId();
+    this.uniqueId = this.sharedService.returnId();
 
     console.log(this.uniqueId);
     // Deep copy of the form-model
@@ -55,10 +55,10 @@ export class BookingPopupComponent implements OnInit {
     result.uniqueId = this.uniqueId;
     result.date = new Date(result.date).toDateString();
 
-    this.menuService.createBookingOrder(result);
-    this.menuService.changeOrder(result);
-    this.menuService.changeMenu(result.numberOfGuests);
-    
+    this.sharedService.createBookingOrder(result);
+    this.sharedService.changeOrder(result);
+    this.sharedService.changeMenu(result.numberOfGuests);
+
     this.contactForm.reset();
     console.log(result);
   }

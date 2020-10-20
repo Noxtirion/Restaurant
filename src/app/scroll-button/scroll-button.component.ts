@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuService } from '../services/menu.service';
+import { SharedService } from '../services/shared.service';
 import { ViewportScroller } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class ScrollButtonComponent implements OnInit {
   private subscribe: Subscription;
 
   constructor(
-    private menuService: MenuService,
+    private sharedService: SharedService,
     private viewportScroller: ViewportScroller
   ) {}
 
@@ -25,7 +25,7 @@ export class ScrollButtonComponent implements OnInit {
   }
 
   getAnchorStatus() {
-    this.subscribe = this.menuService
+    this.subscribe = this.sharedService
       .getAnchorStatus()
       .subscribe((x) => (this.anchor = x));
   }
