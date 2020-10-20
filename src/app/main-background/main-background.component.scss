@@ -15,6 +15,8 @@ $shine3: #6c5937;
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    margin: 0;
+    font-weight: normal;
 
     .background__title {
       margin: 5rem;
@@ -38,7 +40,7 @@ $shine3: #6c5937;
         margin: 2rem 2rem 2rem;
       }
 
-      @media (max-width: 560px) {
+      @media (max-width: 580px) {
         font-size: 3.5rem;
         margin: 2rem 2rem 2rem;
       }
@@ -62,7 +64,7 @@ $shine3: #6c5937;
           font-size: 3.5rem;
         }
 
-        @media (max-width: 560px) {
+        @media (max-width: 580px) {
           font-size: 3rem;
         }
 

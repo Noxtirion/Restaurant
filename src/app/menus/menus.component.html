@@ -5,6 +5,7 @@
       class="menus__product"
       *ngFor="let product of products"
       [routerLink]="['/menu', product.id]"
+      (click)="onClickScroll('menu-details')"
     >
       <img src="{{ product.imageSrc }}" alt="dish" class="menus__image" />
       <div class="menus__description">

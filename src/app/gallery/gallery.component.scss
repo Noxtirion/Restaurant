@@ -1,5 +1,4 @@
 .gallery {
-  min-height: 100vh;
   background-color: #080f0f;
   margin-right: 300px;
   background: url(../../assets/gallery-images/gallery-background-gray.jpg)
@@ -81,6 +80,10 @@
         padding: 1rem 0;
         color: #bea57d;
 
+        @media (max-width: 619px) {
+          align-self: flex-start;
+        }
+
         @media (max-width: 330px) {
           margin-left: 8px;
         }
@@ -92,16 +95,4 @@
       }
     }
   }
-
-  //   &__background-description {
-  //     padding-top: 3rem;
-  //     background-color: #080f0f;
-  //     color: #bea57d;
-  //     text-align: center;
-
-  //     a {
-  //       text-decoration: none;
-  //       color: #fff;
-  //     }
-  //   }
 }

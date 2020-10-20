@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OFFER } from '../models/database';
 import { Offer } from '../models/product';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-menus',
@@ -10,7 +11,13 @@ import { Offer } from '../models/product';
 export class MenusComponent implements OnInit {
   products: Offer[] = OFFER;
 
-  constructor() {}
+  constructor(private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {}
+
+  onClickScroll(elementId: string): void {
+    setTimeout(() => {
+      this.viewportScroller.scrollToAnchor(elementId);
+    }, 0);
+  }
 }
