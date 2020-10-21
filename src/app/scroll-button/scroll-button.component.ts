@@ -20,6 +20,7 @@ export class ScrollButtonComponent implements OnInit {
   ngOnInit(): void {
     this.getAnchorStatus();
   }
+
   ngOnDestroy() {
     this.subscribe.unsubscribe();
   }

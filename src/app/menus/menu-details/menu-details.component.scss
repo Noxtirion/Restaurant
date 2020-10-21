@@ -37,6 +37,7 @@
       margin: 0.8rem;
       position: relative;
       background-color: rgb(230, 230, 230);
+      font-family: "DancingScript", "Roboto", "Helvetica Neue", sans-serif;
 
       @media (max-width: 470px) {
         width: 50%;
@@ -47,6 +48,28 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 2rem;
+
+        .menu-details__name {
+          font-size: 1.4rem;
+        }
+
+        .menu-details__price {
+          font-size: 1.2rem;
+        }
+
+        .menu-details__name,
+        .menu-details__price {
+          @media (max-width: 470px) {
+            font-size: 1.1rem;
+          }
+        }
+      }
+      .menu-details__description {
+        font-size: 1.2rem;
+
+        @media (max-width: 470px) {
+          font-size: 1.1rem;
+        }
       }
     }
 

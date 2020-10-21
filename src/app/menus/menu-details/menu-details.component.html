@@ -5,10 +5,10 @@
   <div class="menu-details__wrapper">
     <div class="menu-details__product" *ngFor="let item of menuDetails?.items">
       <div class="menu-details__top-info">
-        <span>{{ item.name }}</span
-        ><span>{{ item.price }} PLN</span>
+        <span class="menu-details__name">{{ item.name }}</span
+        ><span class="menu-details__price">{{ item.price }} PLN</span>
       </div>
-      <div>{{ item.description }}</div>
+      <div class="menu-details__description">{{ item.description }}</div>
     </div>
   </div>
 </div>

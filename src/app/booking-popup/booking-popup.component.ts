@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ContactRequest } from '../models/booking-popup.model';
 import { SharedService } from '../services/shared.service';
+import { BookingPopupService } from './booking-popup.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
@@ -11,7 +12,6 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class BookingPopupComponent implements OnInit {
   contactForm: FormGroup;
-  cancelForm: FormGroup;
   uniqueId: string;
   isDisabled: boolean = true;
   isSignedIn: boolean = false;
@@ -23,19 +23,21 @@ export class BookingPopupComponent implements OnInit {
   numberOfGuests: number[] = [1, 2, 3, 4, 5, 6];
   timeAvalible: string[] = ['14:00', '16:00', '18:00', '20:00', '22:00'];
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private bookingPopupService: BookingPopupService
+  ) {}
 
   ngOnInit(): void {
-    this.sharedService.createId();
-    this.contactForm = this.sharedService.createFormGroup();
-    this.cancelForm = this.sharedService.createCancelForm();
+    this.bookingPopupService.createId();
+    this.contactForm = this.bookingPopupService.createFormGroup();
 
-    const [min, max] = this.sharedService.createDateScope();
+    const [min, max] = this.bookingPopupService.createDateScope();
 
     this.minDate = min;
     this.maxDate = max;
 
-    this.sharedService.checkUserIsLogged().then((res) => {
+    this.bookingPopupService.checkUserIsLogged().then((res) => {
       if (res) this.isSignedIn = true;
     });
   }
@@ -47,7 +49,7 @@ export class BookingPopupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.uniqueId = this.sharedService.returnId();
+    this.uniqueId = this.bookingPopupService.returnId();
 
     console.log(this.uniqueId);
     // Deep copy of the form-model
@@ -55,7 +57,7 @@ export class BookingPopupComponent implements OnInit {
     result.uniqueId = this.uniqueId;
     result.date = new Date(result.date).toDateString();
 
-    this.sharedService.createBookingOrder(result);
+    this.bookingPopupService.createBookingOrder(result);
     this.sharedService.changeOrder(result);
     this.sharedService.changeMenu(result.numberOfGuests);
 
