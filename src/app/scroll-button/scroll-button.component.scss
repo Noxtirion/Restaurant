@@ -4,17 +4,18 @@
   background-color: transparent;
   border: 0;
   transition: opacity 400ms ease;
-  height: 4rem;
-  width: 4rem;
+  height: 3.5rem;
+  width: 3.5rem;
   position: fixed;
   bottom: 1rem;
   left: 1rem;
   transition: transform 0.3s, opacity 0.3s;
   cursor: pointer;
   z-index: 50;
+  padding: 0;
 
   &:hover {
-    transform: translateY(-0.3rem);
+    transform: translateY(-0.4rem);
   }
 }
 

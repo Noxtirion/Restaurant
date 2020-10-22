@@ -4,74 +4,79 @@
       WELCOME IN OUR RESTAURANT, {{ userOrder?.firstName | uppercase }} !
     </h2>
     <div class="user-profile__buttons">
-      <a class="user-profile__log-button" (click)="openDialog()">BOOK A TABLE</a>
-      <a class="user-profile__log-button" routerLink="/menus" (click)="logout()">LOG OUT</a>
+      <a
+        class="user-profile__log-button"
+        [class.user-profile__log-button--red]="
+          orderPerUser !== undefined && orderPerUser.length !== 0
+        "
+        (click)="openDialog()"
+        >{{ bookingButtonText }}</a
+      >
+      <a class="user-profile__log-button" routerLink="/menus" (click)="logout()"
+        >LOG OUT</a
+      >
     </div>
 
     <div class="user-profile__orders" *ngIf="userOrder">
-      <div class="user-profile__order">First Name: {{ userOrder?.firstName }}</div>
-      <div class="user-profile__order">Last Name: {{ userOrder?.lastName }}</div>
-      <div class="user-profile__order">Number of Guests: {{ userOrder?.numberOfGuests }}</div>
-      <div class="user-profile__order">Date: {{ userOrder?.date | date: "fullDate" }}</div>
+      <div class="user-profile__order">
+        First Name: {{ userOrder?.firstName }}
+      </div>
+      <div class="user-profile__order">
+        Last Name: {{ userOrder?.lastName }}
+      </div>
+      <div class="user-profile__order">
+        Number of Guests: {{ userOrder?.numberOfGuests }}
+      </div>
+      <div class="user-profile__order">
+        Date: {{ userOrder?.date | date: "fullDate" }}
+      </div>
       <div class="user-profile__order">Time: {{ userOrder?.timeAvalible }}</div>
     </div>
-    <div class="user-profile__wrapper">
-      <div class="user-profile__menu">
-        <div *ngFor="let menu of menuPerPerson">
-          <h3 #dish class="user-profile__menu-title">{{ menu.dishType }}</h3>
-          <ul class="user-profile__list">
-            <li
-              #item
-              (click)="getMenuItem(item, dish)"
-              class="user-profile__list-item"
-              *ngFor="let item of menu?.items"
+    <div class="user-profile__wrapper" *ngIf="userOrder">
+      <div class="user-profile__choose-wrapper">
+        <div class="user-profile__menu">
+          <div *ngFor="let menu of menuPerPerson">
+            <h3 #dish class="user-profile__menu-title">{{ menu.dishType }}</h3>
+            <ul class="user-profile__list">
+              <li
+                #item
+                (click)="getMenuItem(item, dish)"
+                class="user-profile__list-item"
+                *ngFor="let item of menu?.items"
+              >
+                <div class="user-profile__item-wrapper">
+                  <span>{{ item.name }}</span>
+                  <span>{{ item.price }} PLN</span>
+                </div>
+                <div>{{ item.description }}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="user-profile__wrapper-bottom">
+          <div class="user-profile__buttons user-profile__buttons--order">
+            <button
+              [disabled]="!chosenMenu"
+              *ngFor="let guest of numberOfGuests"
+              class="user-profile__log-button user-profile__log-button--order"
+              (click)="getOrderPerUser(guest)"
             >
-              <div class="user-profile__item-wrapper">
-                <span>{{ item.name }}</span>
-                <span>{{ item.price }} PLN</span>
+              Add {{ guest + 1 }} Guest order
+            </button>
+          </div>
+
+          <div class="user-profile__order-menu">
+            <div *ngFor="let menu of chosenMenu">
+              <h3>{{ menu?.dishType }}</h3>
+              <div class="user-profile__order-menu-item">
+                <span>{{ menu?.order.name }}</span>
+                <span>{{ menu?.order.price }} PLN</span>
               </div>
-              <div>{{ item.description }}</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- <ng-container *ngFor="let guest of numberOfGuests">
-        <div class="user-profile__order-menu">
-          <div *ngFor="let menu of chosenMenu">
-            <button class="user-profile__order-button"></button>
-            <h3>{{ menu?.dishType }}</h3>
-            <div class="user-profile__order-menu-item">
-              <span>{{ menu?.order.name }}</span>
-              <span>{{ menu?.order.price }} PLN</span>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-
-      <!-- <div class="user-profile__wrapper-bottom"> -->
-      <div class="user-profile__wrapper-bottom">
-        <div class="user-profile__buttons user-profile__buttons--order">
-          <button
-            [disabled]="!chosenMenu"
-            *ngFor="let guest of numberOfGuests"
-            class="user-profile__log-button user-profile__log-button--order"
-            (click)="getOrderPerUser(guest)"
-          >
-            Add {{ guest + 1 }} Guest order
-          </button>
-        </div>
-
-        <div class="user-profile__order-menu">
-          <div *ngFor="let menu of chosenMenu">
-            <h3>{{ menu?.dishType }}</h3>
-            <div class="user-profile__order-menu-item">
-              <span>{{ menu?.order.name }}</span>
-              <span>{{ menu?.order.price }} PLN</span>
             </div>
           </div>
         </div>
       </div>
-      <!-- </div> -->
       <div class="user-profile__order-menu-user">
         <div
           class="user-profile__single-order"
@@ -80,12 +85,20 @@
           #userElement
         >
           <div class="user-profile__single-order-wrapper">
-            <h3 class="user-profile__single-order-title">Guest {{ user.id }} order:</h3>
-            <button (click)="removeOrder(userElement)" class="user-profile__single-order-button">
+            <h3 class="user-profile__single-order-title">
+              Guest {{ user.id }} order:
+            </h3>
+            <button
+              (click)="removeOrder(userElement)"
+              class="user-profile__single-order-button"
+            >
               <span>&#10007;</span>
             </button>
           </div>
-          <div class="user-profile__single-order-type" *ngFor="let menu of user.menu">
+          <div
+            class="user-profile__single-order-type"
+            *ngFor="let menu of user.menu"
+          >
             {{ menu?.dishType }}:
             <div class="user-profile__single-order-dish">
               <span>{{ menu?.order.name }}</span
@@ -93,8 +106,17 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="user-profile__submit" (click)="createMenuOrder()">
-          SUBMIT ORDER
+        <button
+          type="submit"
+          class="user-profile__submit"
+          (click)="createMenuOrder()"
+          [ngClass]="{
+            'user-profile__submit--disabled':
+              orderPerUser === undefined || orderPerUser.length === 0,
+            'user-profile__submit--green': submitButton.colorSucceed
+          }"
+        >
+          {{ submitButton.text }}
         </button>
       </div>
     </div>

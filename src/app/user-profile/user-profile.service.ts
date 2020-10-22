@@ -54,17 +54,26 @@ export class UserProfileService {
       menu: this.chosenMenu,
     });
 
-    console.log(this.orderPerUser);
-
     return this.orderPerUser.sort(this.sortOrder);
   }
 
   removeOrder(element: { dataset: { userId: any } }) {
     let userId = element.dataset.userId;
-
     this.orderPerUser = this.orderPerUser.filter((x) => x.id !== userId);
 
     return this.orderPerUser;
+  }
+
+  async removeAllOrder() {
+    try {
+      await this.sharedService.getUserId().then((x) => {
+        this.userRefId = x;
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    this.userRefId &&
+      this.firestore.collection('guestOrder').doc(`${this.userRefId}`).set({});
   }
 
   async getMenuOrder() {
@@ -80,7 +89,7 @@ export class UserProfileService {
       .then((x) => {
         if (!x.data()) return;
         this.orderPerUser = Object.values(x.data());
-        return Object.values(x.data());
+        return Object.values(x.data()).sort(this.sortOrder);
       });
   }
 
@@ -108,8 +117,6 @@ export class UserProfileService {
     this.chosenMenu = this.chosenMenu.filter(
       (element) => element.dishType !== dish.innerText
     );
-
-    console.log(this.chosenMenu);
   }
 
   async bookMenu(): Promise<any> {
@@ -128,17 +135,14 @@ export class UserProfileService {
       this.userRefId = x;
     });
 
-    //  if (!this.userRefId) return;
     await this.firestore
       .collection('bookingOrders')
       .doc(`${this.userRefId}`)
       .get()
       .toPromise()
       .then((x) => {
-        if (!x.data()) return;
-        this.userOrder = x.data();
+        !x.data() ? (this.userOrder = null) : (this.userOrder = x.data());
       });
-    //  console.log(this.userOrder);
     return this.userOrder;
   }
 }

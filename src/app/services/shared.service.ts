@@ -17,9 +17,6 @@ export class SharedService {
   anchor = new BehaviorSubject<boolean>(false);
   newBookMenu = new Subject(); //shared
   newOrder = new Subject<ContactRequest>();
-  canceledBook: ContactRequest;
-  allBookedItems: any[];
-  uniqueId: string;
   isBooked: boolean = false;
   numberOfGuests: any; //shared
 
@@ -49,12 +46,15 @@ export class SharedService {
     //  this.checkIfUserBooked();
   }
 
+  ////////////////////// shared (in booking-popup component)
   changeOrder(order: ContactRequest) {
     this.newOrder.next(order);
 
+    this.newOrder.subscribe((x) => console.log(x));
     //  this.isLogged.subscribe(x => console.log(x));
     //  console.log(this.newOrder);
   }
+  ////////////////////
 
   /////////////////////////////// shared
   changeMenu(guests: number) {
@@ -105,7 +105,6 @@ export class SharedService {
       .pipe(first())
       .toPromise()
       .then((x) => (this.isBooked = x.payload.exists));
-    console.log(this.isBooked);
   }
 
   getBookStatus() {

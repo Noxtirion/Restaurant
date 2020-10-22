@@ -23,6 +23,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   isLoaded: boolean = false;
   chosenMenu: ProductOrder[];
   orderPerUser: OrderPerUserArray[] = [];
+  bookingButtonText: string = 'BOOK TABLE';
+  submitButton = {
+    text: 'SUBMIT ORDER',
+    colorSucceed: false,
+  };
 
   constructor(
     public authService: AuthService,
@@ -37,11 +42,29 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.bookMenu();
     this.checkUserBook();
     await this.getUserOrder();
-    console.log(this.menuPerPerson);
     await this.getMenuOrder();
     this.isLoaded = true;
-    console.log(this.chosenMenu);
-    //  this.orderPerUser = JSON.parse(localStorage.getItem('order'));
+    this.changeButtonText();
+  }
+
+  changeButtonText() {
+    this.orderPerUser === undefined || this.orderPerUser.length === 0
+      ? (this.bookingButtonText = 'BOOK TABLE')
+      : (this.bookingButtonText = 'RESET ORDER / BOOK TABLE');
+  }
+
+  changeSubmitButtonText() {
+    this.submitButton = {
+      text: 'SUBMIT SUCCEED',
+      colorSucceed: true,
+    };
+
+    setTimeout(() => {
+      this.submitButton = {
+        text: 'SUBMIT ORDER',
+        colorSucceed: false,
+      };
+    }, 3000);
   }
 
   ngOnDestroy() {
@@ -51,12 +74,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   getOrderPerUser(order: number) {
     this.orderPerUser = this.userProfileService.getOrderPerUser(order);
-    // localStorage.setItem('order', JSON.stringify(this.orderPerUser));
     this.chosenMenu = null;
     this.userProfileService.resetChosenMenu();
-
-    console.log(this.orderPerUser);
-    // console.log(order);
+    this.changeButtonText();
   }
 
   removeOrder(element: { dataset: { userId: any } }) {
@@ -71,8 +91,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   getNumberOfguests() {
-    // add unsubscribe!!!!!
-    console.log(this.numberOfGuests);
     this.guestSubscription = this.sharedService.newBookMenu.subscribe(
       (x) => (this.numberOfGuests = x)
     );
@@ -97,19 +115,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   openDialog() {
     this.getOrderPerUser(10);
-    //  localStorage.removeItem('order');
+    this.userProfileService.removeAllOrder();
+    this.changeButtonText();
     this.dialog.open(BookingPopupComponent);
   }
 
   checkUserBook() {
     this.isUserBook = this.sharedService.getBookStatus();
-    console.log(this.isUserBook);
   }
 
   async getUserOrder() {
     await this.userProfileService.getUserOrder().then((x) => {
       this.userOrder = x;
-      // this.numberOfGuests.push();
 
       if (this.userOrder)
         this.sharedService.changeMenu(this.userOrder.numberOfGuests);
@@ -118,6 +135,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   createMenuOrder() {
     this.userProfileService.createMenuOrder();
+    this.changeButtonText();
+    this.changeSubmitButtonText();
   }
 
   getOrder() {

@@ -1,3 +1,5 @@
+$success: #77b4a2;
+
 @mixin flex-container(
   $display: flex,
   $justify-content: center,
@@ -10,7 +12,7 @@
 }
 
 .user-profile {
-  height: 1200px;
+  min-height: 600px;
   background-color: #bea57d;
   margin-right: 300px;
 
@@ -22,11 +24,33 @@
     display: flex;
     justify-content: space-between;
 
+    @media (max-width: 1450px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 820px) {
+      align-items: center;
+    }
+
+    .user-profile__choose-wrapper {
+      display: flex;
+      justify-content: space-between;
+
+      @media (max-width: 820px) {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
     .user-profile__wrapper-bottom {
       display: flex;
       flex-direction: column;
-      // flex-wrap: wrap;
       width: 332px;
+
+      @media (max-width: 340px) {
+        width: 320px;
+      }
     }
 
     .user-profile__order-menu-user {
@@ -78,6 +102,31 @@
           }
         }
       }
+
+      .user-profile__submit {
+        @include flex-container;
+        height: 80px;
+        width: 300px;
+        padding: 0.5rem;
+        background-color: #080f0f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border: 1px transparent solid;
+
+        &:hover {
+          border: 1px #fff solid;
+        }
+
+        &--disabled {
+          display: none;
+        }
+
+        &--green {
+          background-color: $success;
+          border: 1px solid #080f0f;
+        }
+      }
     }
   }
 
@@ -120,11 +169,21 @@
       &:hover {
         border: 1px #fff solid;
       }
+
+      &--red {
+        background-color: #a52422;
+        border: 1px solid #080f0f;
+      }
     }
 
     .user-profile__log-button--order {
       height: 50px;
       width: 150px;
+
+      @media (max-width: 340px) {
+        width: 140px;
+        margin: 0.1rem;
+      }
 
       &:hover {
         border: 1px #fff solid;
@@ -136,6 +195,10 @@
     min-height: 100px;
     justify-content: flex-start;
     margin-top: 2.5rem;
+
+    @media (max-width: 340px) {
+      justify-content: center;
+    }
   }
 
   &__menu {
@@ -144,6 +207,21 @@
     min-width: 400px;
     margin: 3rem 2rem 2rem;
     overflow: auto;
+
+    @media (max-width: 470px) {
+      width: 350px;
+      min-width: 300px;
+      margin: 3rem 1rem 1rem;
+    }
+
+    @media (max-width: 400px) {
+      width: 300px;
+      min-width: 300px;
+    }
+
+    @media (max-width: 340px) {
+      margin: 3rem 0.1rem 0.1rem;
+    }
 
     &-title {
       background-color: #080f0f;
