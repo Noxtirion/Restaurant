@@ -135,7 +135,7 @@
       class="navbar__book"
       *ngIf="isLogged"
       routerLink="/user-profile"
-      (click)="onClickScroll('user-profile')"
+      (click)="onClickScroll('user-profile'); openMenu()"
       >YOUR PROFILE</a
     >
   </div>

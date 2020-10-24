@@ -1,4 +1,3 @@
-// import { Products } from './product';
 import { Offer } from './product';
 import { Gallery } from './product';
 
@@ -22,21 +21,6 @@ export const OFFER: Offer[] = [
     id: '4',
     dishType: 'DRINKS',
     imageSrc: '../../assets/menus-images/drinks.jpg',
-  },
-];
-
-export const numberOfTables = [
-  {
-    id: '1',
-    two: 3,
-  },
-  {
-    id: '2',
-    four: 5,
-  },
-  {
-    id: '3',
-    six: 4,
   },
 ];
 

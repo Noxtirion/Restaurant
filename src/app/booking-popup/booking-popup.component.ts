@@ -43,16 +43,12 @@ export class BookingPopupComponent implements OnInit {
   }
 
   getDate(event: MatDatepickerInputEvent<Date>) {
-    console.log(event.value);
-
     if (event) this.isDisabled = false;
   }
 
   onSubmit() {
     this.uniqueId = this.bookingPopupService.returnId();
 
-    console.log(this.uniqueId);
-    // Deep copy of the form-model
     const result: ContactRequest = Object.assign({}, this.contactForm.value);
     result.uniqueId = this.uniqueId;
     result.date = new Date(result.date).toDateString();
@@ -62,6 +58,5 @@ export class BookingPopupComponent implements OnInit {
     this.sharedService.changeMenu(result.numberOfGuests);
 
     this.contactForm.reset();
-    console.log(result);
   }
 }

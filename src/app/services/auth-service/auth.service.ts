@@ -22,10 +22,10 @@ export class AuthService {
         .then((res) => {
           this.isLoggedIn = true;
           localStorage.setItem('user', JSON.stringify(res.user));
-          //   console.log(this.isLoggedIn);
         });
     } catch (error) {
       console.error(error.message);
+      return error.message;
     }
   }
 
@@ -41,6 +41,7 @@ export class AuthService {
         });
     } catch (error) {
       console.error(error.message);
+      return error.message;
     }
   }
 
@@ -48,7 +49,6 @@ export class AuthService {
     this.fireAuth.signOut();
     localStorage.removeItem('user');
     this.isLoggedIn = false;
-    //  console.log(this.isLoggedIn);
   }
 
   loggedIn(): boolean {
@@ -57,7 +57,5 @@ export class AuthService {
 
   changeLogging(bool: boolean) {
     this.isLogged.next(bool);
-    //  this.isLogged.subscribe(x => console.log(x));
-    console.log(this.isLogged);
   }
 }

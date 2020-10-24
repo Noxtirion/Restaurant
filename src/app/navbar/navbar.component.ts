@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    this.dialog.open(LogInComponent);
+    this.dialog.open(LogInComponent, { panelClass: 'custom-dialog-container' });
   }
 
   onClickScroll(elementId: string): void {
@@ -54,6 +54,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   openMenu() {
     this.isOpen = !this.isOpen;
-    console.log(this.isOpen);
   }
 }

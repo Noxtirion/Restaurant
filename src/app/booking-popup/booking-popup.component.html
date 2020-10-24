@@ -1,5 +1,3 @@
-<!-- <ng-container *ngIf="!isSignedIn"> </ng-container> -->
-
 <ng-container *ngIf="!uniqueId && isSignedIn">
   <h1 mat-dialog-title>Please select booking date and time of arrival:</h1>
   <form class="booking-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
@@ -19,7 +17,14 @@
         <mat-datepicker disabled="false" #picker></mat-datepicker>
       </mat-form-field>
 
-      <button type="button" mat-raised-button (click)="picker.open()">Open</button>
+      <button
+        type="button"
+        mat-raised-button
+        (click)="picker.open()"
+        class="form-buttom"
+      >
+        Open
+      </button>
     </div>
 
     <div class="form-bottom" [ngClass]="{ 'form-show': isDisabled }">
@@ -27,14 +32,18 @@
         <mat-label>Arrival time:</mat-label>
 
         <select matNativeControl formControlName="timeAvalible">
-          <option *ngFor="let time of timeAvalible" [value]="time">{{ time }}</option>
+          <option *ngFor="let time of timeAvalible" [value]="time">
+            {{ time }}
+          </option>
         </select>
       </mat-form-field>
 
       <mat-form-field class="numberOfGuests" appearance="fill">
         <mat-label>Number of Guests (max 6):</mat-label>
         <select matNativeControl formControlName="numberOfGuests">
-          <option *ngFor="let guest of numberOfGuests" [value]="guest">{{ guest }}</option>
+          <option *ngFor="let guest of numberOfGuests" [value]="guest">
+            {{ guest }}
+          </option>
         </select>
       </mat-form-field>
 
@@ -60,43 +69,18 @@
         />
       </mat-form-field>
 
-      <button type="submit" mat-button mat-dialog-close [disabled]="!contactForm.valid">
+      <button
+        type="submit"
+        mat-button
+        mat-dialog-close
+        [disabled]="!contactForm.valid"
+      >
         Book
       </button>
     </div>
   </form>
 </ng-container>
 
-<!-- <ng-container *ngIf="uniqueId && !cancel">
-  <h1 mat-dialog-title>
-    Please write down or copy the following ID which will let You cancel reservation:
-  </h1>
-
-  <div class="unique-id">{{ uniqueId | uppercase }}</div>
-
-  <p>In case of losing the ID please contact restaurant on phone number: 123-456-789. Thank You!</p>
-</ng-container> -->
-
-<!-- <ng-container *ngIf="cancel">
-  <h1 mat-dialog-title>
-    Please provide Your unique Id:
-  </h1>
-  <form class="cancel-form" [formGroup]="cancelForm" (ngSubmit)="onCancel()">
-    <mat-form-field class="cancel-id">
-      <mat-label>Unique Id:</mat-label>
-      <input
-        matInput
-        placeholder="12345678"
-        name="uniqueId"
-        formControlName="uniqueId"
-        maxlength="8"
-      />
-    </mat-form-field>
-    <button type="submit" mat-button [disabled]="!cancelForm.valid">Cancel</button>
-  </form>
-</ng-container> -->
-
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <!-- <button mat-button (click)="openCancel()" *ngIf="!cancel && false">Cancel reservation</button> -->
 </div>

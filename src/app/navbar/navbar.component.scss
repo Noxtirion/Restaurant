@@ -97,10 +97,12 @@
     height: 60px;
     margin: 10px 0;
     border: 2px solid transparent;
+    transition: letter-spacing 0.1s ease-in-out;
 
     &:hover {
       border-top: 2px solid #080f0f;
       border-bottom: 2px solid #080f0f;
+      letter-spacing: 2px;
     }
   }
 
@@ -113,6 +115,7 @@
     border: none;
     cursor: pointer;
     border: 1px transparent solid;
+    letter-spacing: 1px;
 
     &:hover {
       border: 1px #fff solid;

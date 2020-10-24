@@ -70,7 +70,6 @@ export class BookingPopupService {
     try {
       await this.sharedService.getUserId().then((x) => {
         this.userRefId = x;
-        console.log(this.userRefId);
       });
     } catch (error) {
       console.error(error);

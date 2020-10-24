@@ -6,6 +6,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { ContactComponent } from './contact/contact.component';
 import { MenuDetailsComponent } from './menus/menu-details/menu-details.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuardService } from './services/auth-guard-service/auth-guard.service';
 
 const routes: Routes = [
@@ -15,12 +16,16 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] }
-  //   { path: '**', component: PageNotFoundComponent }
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [AuthGuardService],
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled' })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

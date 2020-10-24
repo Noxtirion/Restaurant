@@ -1,7 +1,8 @@
 <section class="user-profile" id="user-profile">
   <ng-container *ngIf="isLoaded">
     <h2 class="user-profile__title">
-      WELCOME IN OUR RESTAURANT, {{ userOrder?.firstName | uppercase }} !
+      WELCOME IN OUR RESTAURANT {{ userOrder?.firstName && "," }}
+      {{ userOrder?.firstName | uppercase }} !
     </h2>
     <div class="user-profile__buttons">
       <a

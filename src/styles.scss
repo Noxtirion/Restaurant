@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+
+.custom-dialog-container .mat-dialog-container {
+   @media (max-width: 450px) {
+          height: 100vh;
+          width: 100vw;
+    }
+}
+
 @font-face {
     font-family: "Roboto";
     src: local("Roboto"), url(./assets/fonts/Roboto/Roboto-Regular.ttf) format("truetype");
@@ -22,6 +30,16 @@ body {
     a {
       text-decoration: none;
    }
+
+   &::-webkit-scrollbar {
+      width: 0.9rem;
+      background-color: #080f0f;
+    }
+
+   &::-webkit-scrollbar-thumb {
+      background-color: #a52422d5;
+      outline: 1px solid #080f0f;
+    }
 
 }
 

@@ -10,6 +10,14 @@
 
 .sign-up {
   min-width: 300px;
+
+  @media (max-width: 450px) {
+    min-width: 250px;
+  }
+
+  @media (max-width: 380px) {
+    min-width: 205px;
+  }
 }
 
 .sign-in {
@@ -28,4 +36,8 @@
 
 .sign-button {
   width: 50%;
+}
+
+.sign-message {
+  color: red;
 }

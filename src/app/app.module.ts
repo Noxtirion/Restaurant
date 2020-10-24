@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,14 +24,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { SharedService } from './services/shared.service';
 import { LogInComponent } from './log-in/log-in.component';
 import { FooterComponent } from './footer/footer.component';
 import { ScrollButtonComponent } from './scroll-button/scroll-button.component';
-
-export function bookingProviderFactory(sharedService: SharedService) {
-  return () => sharedService.checkIfUserBooked();
-}
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +45,7 @@ export function bookingProviderFactory(sharedService: SharedService) {
     LogInComponent,
     FooterComponent,
     ScrollButtonComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,15 +62,7 @@ export function bookingProviderFactory(sharedService: SharedService) {
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    SharedService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: bookingProviderFactory,
-      deps: [SharedService],
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

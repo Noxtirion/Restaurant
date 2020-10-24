@@ -5,17 +5,21 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss']
+  styleUrls: ['./log-in.component.scss'],
 })
 export class LogInComponent implements OnInit {
   isSignedIn: boolean = false;
+  signUpErrorMessage: string;
+  signInErrorMessage: string;
 
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
   async onSignUp(email: string, password: string) {
-    await this.authService.signUp(email, password);
+    await this.authService
+      .signUp(email, password)
+      .then(() => (this.signUpErrorMessage = 'Invalid email or password'));
 
     if (this.authService.isLoggedIn) {
       this.isSignedIn = true;
@@ -25,20 +29,15 @@ export class LogInComponent implements OnInit {
   }
 
   async onSignIn(email: string, password: string) {
-    await this.authService.signIn(email, password);
+    await this.authService
+      .signIn(email, password)
+      .then(() => (this.signInErrorMessage = 'Invalid email or password'));
 
     if (this.authService.isLoggedIn) {
       this.isSignedIn = true;
       this.goToUserProfile();
-
       this.changeLogging();
     }
-    //  await this.menuService.checkIfUserBooked();
-    //  this.isBooked = this.menuService.getBookStatus();
-
-    //  console.log(this.isBooked);
-
-    //  if (!this.isBooked) this.openDialog();
   }
 
   changeLogging() {

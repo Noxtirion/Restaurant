@@ -1,0 +1,19 @@
+.page-not-found {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #080f0f;
+  margin-right: 300px;
+  font-size: 1.2rem;
+
+  @media (max-width: 1100px) {
+    margin-right: 0;
+  }
+
+  &__image {
+    height: 5rem;
+    width: 5rem;
+  }
+}

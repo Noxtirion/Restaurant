@@ -6,7 +6,3 @@ export class ContactRequest {
   lastName: string = '';
   uniqueId: string = '';
 }
-
-export class CancelRequest {
-  uniqueId: string = '';
-}

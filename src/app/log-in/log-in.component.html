@@ -3,12 +3,24 @@
 <div class="sign-up">
   <mat-form-field>
     <mat-label>Email:</mat-label>
-    <input type="text" placeholder="default@example.com" name="EmailSignUp" matInput #emailSignUp />
+    <input
+      type="text"
+      placeholder="default@example.com"
+      name="EmailSignUp"
+      matInput
+      #emailSignUp
+    />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Password:</mat-label>
-    <input type="text" matInput #passwordSignUp placeholder="******" name="PasswordSignUp" />
+    <input
+      type="text"
+      matInput
+      #passwordSignUp
+      placeholder="******"
+      name="PasswordSignUp"
+    />
   </mat-form-field>
 
   <button
@@ -16,22 +28,34 @@
     class="sign-button"
     mat-raised-button
     (click)="onSignUp(emailSignUp.value, passwordSignUp.value)"
-    mat-dialog-close
   >
     Sign Up
   </button>
+  <div class="sign-message">{{ signUpErrorMessage }}</div>
 </div>
 <div class="sign-in">
   <h2 mat-dialog-title class="sign-in-title">Sign In</h2>
 
   <mat-form-field>
     <mat-label>Email:</mat-label>
-    <input type="text" placeholder="default@example.com" name="Email" matInput #email />
+    <input
+      type="text"
+      placeholder="default@example.com"
+      name="Email"
+      matInput
+      #email
+    />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Password:</mat-label>
-    <input type="text" matInput #password placeholder="*******" name="Password" />
+    <input
+      type="text"
+      matInput
+      #password
+      placeholder="*******"
+      name="Password"
+    />
   </mat-form-field>
 
   <button
@@ -39,10 +63,10 @@
     class="sign-button"
     mat-raised-button
     (click)="onSignIn(email.value, password.value)"
-    mat-dialog-close
   >
     Sign In
   </button>
+  <div class="sign-message">{{ signInErrorMessage }}</div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Close</button>
   </div>

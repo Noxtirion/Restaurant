@@ -14,7 +14,6 @@ import { Products, ProductOrder, OrderPerUserArray } from '../models/product';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  isUserBook: boolean = false;
   userOrder: ContactRequest;
   subscription: Subscription;
   guestSubscription: Subscription;
@@ -37,10 +36,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.dialog.closeAll();
     this.getOrder();
     this.getNumberOfguests();
     this.bookMenu();
-    this.checkUserBook();
     await this.getUserOrder();
     await this.getMenuOrder();
     this.isLoaded = true;
@@ -98,7 +97,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   getMenuItem(item: any, dish: { innerText: any }) {
     this.chosenMenu = this.userProfileService.getMenuItem(item, dish);
-    console.log(this.chosenMenu);
   }
 
   bookMenu() {
@@ -117,11 +115,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.getOrderPerUser(10);
     this.userProfileService.removeAllOrder();
     this.changeButtonText();
-    this.dialog.open(BookingPopupComponent);
-  }
-
-  checkUserBook() {
-    this.isUserBook = this.sharedService.getBookStatus();
+    this.dialog.open(BookingPopupComponent, {
+      panelClass: 'custom-dialog-container',
+    });
   }
 
   async getUserOrder() {

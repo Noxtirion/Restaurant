@@ -62,7 +62,8 @@ $success: #77b4a2;
       .user-profile__single-order {
         margin: 0.5rem 0;
         padding: 0.5rem;
-        border: 1px solid #080f0f;
+        box-shadow: 2px 2px 4px #080f0f88;
+        background-color: rgb(230, 230, 230);
 
         .user-profile__single-order-wrapper {
           display: flex;
@@ -132,8 +133,11 @@ $success: #77b4a2;
 
   &__title {
     padding: 3rem 0;
-    margin: 0;
+    margin: 0 0 3rem;
     text-align: center;
+    border-bottom: 2px solid #080f0f;
+    background-color: #080f0f;
+    color: #bea57d;
   }
 
   &__orders {
@@ -145,7 +149,8 @@ $success: #77b4a2;
     .user-profile__order {
       margin: 0.5rem;
       padding: 0.5rem;
-      border: 1px solid #080f0f;
+      box-shadow: 2px 2px 4px #080f0f88;
+      background-color: $success;
     }
   }
 
@@ -207,6 +212,20 @@ $success: #77b4a2;
     min-width: 400px;
     margin: 3rem 2rem 2rem;
     overflow: auto;
+    border: 2px solid #080f0f;
+    border-right: none;
+    box-shadow: 2px 2px 4px #080f0f88;
+    background-color: rgb(230, 230, 230);
+
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+      background-color: #080f0f;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #a52422d5;
+      outline: 1px solid #080f0f;
+    }
 
     @media (max-width: 470px) {
       width: 350px;

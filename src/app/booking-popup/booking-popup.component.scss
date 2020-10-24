@@ -43,3 +43,9 @@
 .date-active {
   display: none;
 }
+
+.form-buttom {
+  @media (max-width: 415px) {
+    margin-bottom: 1.5rem;
+  }
+}

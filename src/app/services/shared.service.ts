@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-// import { PRODUCTS } from '../models/database';
-import { ProductOrder, Products, OrderPerUserArray } from '../models/product';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, pipe, Subject, BehaviorSubject } from 'rxjs';
-import { first, tap } from 'rxjs/operators';
-import { ContactRequest, CancelRequest } from '../models/booking-popup.model';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { ContactRequest } from '../models/booking-popup.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,10 +47,6 @@ export class SharedService {
   ////////////////////// shared (in booking-popup component)
   changeOrder(order: ContactRequest) {
     this.newOrder.next(order);
-
-    this.newOrder.subscribe((x) => console.log(x));
-    //  this.isLogged.subscribe(x => console.log(x));
-    //  console.log(this.newOrder);
   }
   ////////////////////
 
@@ -65,7 +59,6 @@ export class SharedService {
         this.numberOfGuests.push(i);
         this.newBookMenu.next(this.numberOfGuests);
       }
-    //  console.log(this.numberOfGuests);
   }
   ///////////////////////////////////////
 
@@ -89,28 +82,9 @@ export class SharedService {
 
   createUserProfileDocument = (userId: any) => {
     if (!userId) return;
-
     const userRef = this.firestore.collection('bookingOrders').doc(`${userId}`);
-    console.log(userRef);
   };
   ////////////////////////////////////
-
-  ////////////////////////////////shared
-  async checkIfUserBooked() {
-    await this.getUserId();
-    await this.firestore
-      .collection('bookingOrders')
-      .doc(`${this.userRefId}`)
-      .snapshotChanges()
-      .pipe(first())
-      .toPromise()
-      .then((x) => (this.isBooked = x.payload.exists));
-  }
-
-  getBookStatus() {
-    return this.isBooked;
-  }
-  ///////////////////////////////
 
   // INTERSECTION OBSERVER // shared
 
