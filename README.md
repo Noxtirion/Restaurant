@@ -1,27 +1,18 @@
 # Restaurant
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+> Restaurant site.
 
-## Development server
+## General info
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Project of Restaurant created during learning Angular. You can sign up and book a table for yourself and your friends. You can also make an order for each of them (not obligatory) by choosing a dish from a menu divided into four categories.
 
-## Code scaffolding
+## Technologies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+-  Angular
+-  RxJS
+-  Firebase
+-  SCSS
 
-## Build
+## Live
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[Live](https://peaceful-nightingale-272ccf.netlify.app/menus)
